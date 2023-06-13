@@ -1,17 +1,17 @@
 /**
  * --------------------------------------------------------------------------
- * Bootstrap (v5.0.0-beta2): modal.js
+ * Bootstrap (v5.0.0-alpha2): modal.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
 
 import {
-  defineJQueryPlugin,
+  getjQuery,
+  TRANSITION_END,
   emulateTransitionEnd,
   getElementFromSelector,
   getTransitionDurationFromElement,
   isVisible,
-  isRTL,
   reflow,
   typeCheckConfig,
 } from './util/index';
@@ -19,7 +19,6 @@ import Data from './dom/data';
 import EventHandler from './dom/event-handler';
 import Manipulator from './dom/manipulator';
 import SelectorEngine from './dom/selector-engine';
-import BaseComponent from './base-component';
 
 /**
  * ------------------------------------------------------------------------
@@ -28,6 +27,7 @@ import BaseComponent from './base-component';
  */
 
 const NAME = 'modal';
+const VERSION = '5.0.0-alpha2';
 const DATA_KEY = 'bs.modal';
 const EVENT_KEY = `.${DATA_KEY}`;
 const DATA_API_KEY = '.data-api';
@@ -37,12 +37,14 @@ const Default = {
   backdrop: true,
   keyboard: true,
   focus: true,
+  show: true,
 };
 
 const DefaultType = {
   backdrop: '(boolean|string)',
   keyboard: 'boolean',
   focus: 'boolean',
+  show: 'boolean',
 };
 
 const EVENT_HIDE = `hide${EVENT_KEY}`;
@@ -67,8 +69,8 @@ const CLASS_NAME_STATIC = 'modal-static';
 
 const SELECTOR_DIALOG = '.modal-dialog';
 const SELECTOR_MODAL_BODY = '.modal-body';
-const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="modal"]';
-const SELECTOR_DATA_DISMISS = '[data-bs-dismiss="modal"]';
+const SELECTOR_DATA_TOGGLE = '[data-toggle="modal"]';
+const SELECTOR_DATA_DISMISS = '[data-dismiss="modal"]';
 const SELECTOR_FIXED_CONTENT = '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top';
 const SELECTOR_STICKY_CONTENT = '.sticky-top';
 
@@ -78,11 +80,10 @@ const SELECTOR_STICKY_CONTENT = '.sticky-top';
  * ------------------------------------------------------------------------
  */
 
-class Modal extends BaseComponent {
+class Modal {
   constructor(element, config) {
-    super(element);
-
     this._config = this._getConfig(config);
+    this._element = element;
     this._dialog = SelectorEngine.findOne(SELECTOR_DIALOG, element);
     this._backdrop = null;
     this._isShown = false;
@@ -90,16 +91,17 @@ class Modal extends BaseComponent {
     this._ignoreBackdropClick = false;
     this._isTransitioning = false;
     this._scrollbarWidth = 0;
+    Data.setData(element, DATA_KEY, this);
   }
 
   // Getters
 
-  static get Default() {
-    return Default;
+  static get VERSION() {
+    return VERSION;
   }
 
-  static get DATA_KEY() {
-    return DATA_KEY;
+  static get Default() {
+    return Default;
   }
 
   // Public
@@ -185,7 +187,7 @@ class Modal extends BaseComponent {
     if (transition) {
       const transitionDuration = getTransitionDurationFromElement(this._element);
 
-      EventHandler.one(this._element, 'transitionend', (event) => this._hideModal(event));
+      EventHandler.one(this._element, TRANSITION_END, (event) => this._hideModal(event));
       emulateTransitionEnd(this._element, transitionDuration);
     } else {
       this._hideModal();
@@ -197,8 +199,6 @@ class Modal extends BaseComponent {
       EventHandler.off(htmlElement, EVENT_KEY)
     );
 
-    super.dispose();
-
     /**
      * `document` has 2 events `EVENT_FOCUSIN` and `EVENT_CLICK_DATA_API`
      * Do not move `document` in `htmlElements` array
@@ -206,7 +206,10 @@ class Modal extends BaseComponent {
      */
     EventHandler.off(document, EVENT_FOCUSIN);
 
+    Data.removeData(this._element, DATA_KEY);
+
     this._config = null;
+    this._element = null;
     this._dialog = null;
     this._backdrop = null;
     this._isShown = null;
@@ -274,7 +277,7 @@ class Modal extends BaseComponent {
     if (transition) {
       const transitionDuration = getTransitionDurationFromElement(this._dialog);
 
-      EventHandler.one(this._dialog, 'transitionend', transitionComplete);
+      EventHandler.one(this._dialog, TRANSITION_END, transitionComplete);
       emulateTransitionEnd(this._dialog, transitionDuration);
     } else {
       transitionComplete();
@@ -359,11 +362,7 @@ class Modal extends BaseComponent {
           return;
         }
 
-        if (this._config.backdrop === 'static') {
-          this._triggerBackdropTransition();
-        } else {
-          this.hide();
-        }
+        this._triggerBackdropTransition();
       });
 
       if (animate) {
@@ -379,7 +378,7 @@ class Modal extends BaseComponent {
 
       const backdropTransitionDuration = getTransitionDurationFromElement(this._backdrop);
 
-      EventHandler.one(this._backdrop, 'transitionend', callback);
+      EventHandler.one(this._backdrop, TRANSITION_END, callback);
       emulateTransitionEnd(this._backdrop, backdropTransitionDuration);
     } else if (!this._isShown && this._backdrop) {
       this._backdrop.classList.remove(CLASS_NAME_SHOW);
@@ -391,7 +390,7 @@ class Modal extends BaseComponent {
 
       if (this._element.classList.contains(CLASS_NAME_FADE)) {
         const backdropTransitionDuration = getTransitionDurationFromElement(this._backdrop);
-        EventHandler.one(this._backdrop, 'transitionend', callbackRemove);
+        EventHandler.one(this._backdrop, TRANSITION_END, callbackRemove);
         emulateTransitionEnd(this._backdrop, backdropTransitionDuration);
       } else {
         callbackRemove();
@@ -402,31 +401,35 @@ class Modal extends BaseComponent {
   }
 
   _triggerBackdropTransition() {
-    const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED);
-    if (hideEvent.defaultPrevented) {
-      return;
-    }
-
-    const isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
-
-    if (!isModalOverflowing) {
-      this._element.style.overflowY = 'hidden';
-    }
-
-    this._element.classList.add(CLASS_NAME_STATIC);
-    const modalTransitionDuration = getTransitionDurationFromElement(this._dialog);
-    EventHandler.off(this._element, 'transitionend');
-    EventHandler.one(this._element, 'transitionend', () => {
-      this._element.classList.remove(CLASS_NAME_STATIC);
-      if (!isModalOverflowing) {
-        EventHandler.one(this._element, 'transitionend', () => {
-          this._element.style.overflowY = '';
-        });
-        emulateTransitionEnd(this._element, modalTransitionDuration);
+    if (this._config.backdrop === 'static') {
+      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED);
+      if (hideEvent.defaultPrevented) {
+        return;
       }
-    });
-    emulateTransitionEnd(this._element, modalTransitionDuration);
-    this._element.focus();
+
+      const isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
+
+      if (!isModalOverflowing) {
+        this._element.style.overflowY = 'hidden';
+      }
+
+      this._element.classList.add(CLASS_NAME_STATIC);
+      const modalTransitionDuration = getTransitionDurationFromElement(this._dialog);
+      EventHandler.off(this._element, TRANSITION_END);
+      EventHandler.one(this._element, TRANSITION_END, () => {
+        this._element.classList.remove(CLASS_NAME_STATIC);
+        if (!isModalOverflowing) {
+          EventHandler.one(this._element, TRANSITION_END, () => {
+            this._element.style.overflowY = '';
+          });
+          emulateTransitionEnd(this._element, modalTransitionDuration);
+        }
+      });
+      emulateTransitionEnd(this._element, modalTransitionDuration);
+      this._element.focus();
+    } else {
+      this.hide();
+    }
   }
 
   // ----------------------------------------------------------------------
@@ -436,17 +439,11 @@ class Modal extends BaseComponent {
   _adjustDialog() {
     const isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
 
-    if (
-      (!this._isBodyOverflowing && isModalOverflowing && !isRTL) ||
-      (this._isBodyOverflowing && !isModalOverflowing && isRTL)
-    ) {
+    if (!this._isBodyOverflowing && isModalOverflowing) {
       this._element.style.paddingLeft = `${this._scrollbarWidth}px`;
     }
 
-    if (
-      (this._isBodyOverflowing && !isModalOverflowing && !isRTL) ||
-      (!this._isBodyOverflowing && isModalOverflowing && isRTL)
-    ) {
+    if (this._isBodyOverflowing && !isModalOverflowing) {
       this._element.style.paddingRight = `${this._scrollbarWidth}px`;
     }
   }
@@ -464,51 +461,65 @@ class Modal extends BaseComponent {
 
   _setScrollbar() {
     if (this._isBodyOverflowing) {
-      this._setElementAttributes(
-        SELECTOR_FIXED_CONTENT,
-        'paddingRight',
-        (calculatedValue) => calculatedValue + this._scrollbarWidth
-      );
-      this._setElementAttributes(
-        SELECTOR_STICKY_CONTENT,
-        'marginRight',
-        (calculatedValue) => calculatedValue - this._scrollbarWidth
-      );
-      this._setElementAttributes(
-        'body',
-        'paddingRight',
-        (calculatedValue) => calculatedValue + this._scrollbarWidth
-      );
+      // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
+      //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
+
+      // Adjust fixed content padding
+      SelectorEngine.find(SELECTOR_FIXED_CONTENT).forEach((element) => {
+        const actualPadding = element.style.paddingRight;
+        const calculatedPadding = window.getComputedStyle(element)['padding-right'];
+        Manipulator.setDataAttribute(element, 'padding-right', actualPadding);
+        element.style.paddingRight = `${parseFloat(calculatedPadding) + this._scrollbarWidth}px`;
+      });
+
+      // Adjust sticky content margin
+      SelectorEngine.find(SELECTOR_STICKY_CONTENT).forEach((element) => {
+        const actualMargin = element.style.marginRight;
+        const calculatedMargin = window.getComputedStyle(element)['margin-right'];
+        Manipulator.setDataAttribute(element, 'margin-right', actualMargin);
+        element.style.marginRight = `${parseFloat(calculatedMargin) - this._scrollbarWidth}px`;
+      });
+
+      // Adjust body padding
+      const actualPadding = document.body.style.paddingRight;
+      const calculatedPadding = window.getComputedStyle(document.body)['padding-right'];
+
+      Manipulator.setDataAttribute(document.body, 'padding-right', actualPadding);
+      document.body.style.paddingRight = `${
+        parseFloat(calculatedPadding) + this._scrollbarWidth
+      }px`;
     }
 
     document.body.classList.add(CLASS_NAME_OPEN);
   }
 
-  _setElementAttributes(selector, styleProp, callback) {
-    SelectorEngine.find(selector).forEach((element) => {
-      const actualValue = element.style[styleProp];
-      const calculatedValue = window.getComputedStyle(element)[styleProp];
-      Manipulator.setDataAttribute(element, styleProp, actualValue);
-      element.style[styleProp] = callback(Number.parseFloat(calculatedValue)) + 'px';
-    });
-  }
-
   _resetScrollbar() {
-    this._resetElementAttributes(SELECTOR_FIXED_CONTENT, 'paddingRight');
-    this._resetElementAttributes(SELECTOR_STICKY_CONTENT, 'marginRight');
-    this._resetElementAttributes('body', 'paddingRight');
-  }
-
-  _resetElementAttributes(selector, styleProp) {
-    SelectorEngine.find(selector).forEach((element) => {
-      const value = Manipulator.getDataAttribute(element, styleProp);
-      if (typeof value === 'undefined' && element === document.body) {
-        element.style[styleProp] = '';
-      } else {
-        Manipulator.removeDataAttribute(element, styleProp);
-        element.style[styleProp] = value;
+    // Restore fixed content padding
+    SelectorEngine.find(SELECTOR_FIXED_CONTENT).forEach((element) => {
+      const padding = Manipulator.getDataAttribute(element, 'padding-right');
+      if (typeof padding !== 'undefined') {
+        Manipulator.removeDataAttribute(element, 'padding-right');
+        element.style.paddingRight = padding;
       }
     });
+
+    // Restore sticky content and navbar-toggler margin
+    SelectorEngine.find(`${SELECTOR_STICKY_CONTENT}`).forEach((element) => {
+      const margin = Manipulator.getDataAttribute(element, 'margin-right');
+      if (typeof margin !== 'undefined') {
+        Manipulator.removeDataAttribute(element, 'margin-right');
+        element.style.marginRight = margin;
+      }
+    });
+
+    // Restore body padding
+    const padding = Manipulator.getDataAttribute(document.body, 'padding-right');
+    if (typeof padding === 'undefined') {
+      document.body.style.paddingRight = '';
+    } else {
+      Manipulator.removeDataAttribute(document.body, 'padding-right');
+      document.body.style.paddingRight = padding;
+    }
   }
 
   _getScrollbarWidth() {
@@ -542,8 +553,14 @@ class Modal extends BaseComponent {
         }
 
         data[config](relatedTarget);
+      } else if (_config.show) {
+        data.show(relatedTarget);
       }
     });
+  }
+
+  static getInstance(element) {
+    return Data.getData(element, DATA_KEY);
   }
 }
 
@@ -583,16 +600,26 @@ EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (
     data = new Modal(target, config);
   }
 
-  data.toggle(this);
+  data.show(this);
 });
+
+const $ = getjQuery();
 
 /**
  * ------------------------------------------------------------------------
  * jQuery
  * ------------------------------------------------------------------------
- * add .Modal to jQuery only if jQuery is present
+ * add .modal to jQuery only if jQuery is present
  */
-
-defineJQueryPlugin(NAME, Modal);
+/* istanbul ignore if */
+if ($) {
+  const JQUERY_NO_CONFLICT = $.fn[NAME];
+  $.fn[NAME] = Modal.jQueryInterface;
+  $.fn[NAME].Constructor = Modal;
+  $.fn[NAME].noConflict = () => {
+    $.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Modal.jQueryInterface;
+  };
+}
 
 export default Modal;

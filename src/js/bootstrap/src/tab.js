@@ -1,12 +1,13 @@
 /**
  * --------------------------------------------------------------------------
- * Bootstrap (v5.0.0-beta2): tab.js
+ * Bootstrap (v5.0.0-alpha2): tab.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
 
 import {
-  defineJQueryPlugin,
+  getjQuery,
+  TRANSITION_END,
   emulateTransitionEnd,
   getElementFromSelector,
   getTransitionDurationFromElement,
@@ -15,7 +16,6 @@ import {
 import Data from './dom/data';
 import EventHandler from './dom/event-handler';
 import SelectorEngine from './dom/selector-engine';
-import BaseComponent from './base-component';
 
 /**
  * ------------------------------------------------------------------------
@@ -24,6 +24,7 @@ import BaseComponent from './base-component';
  */
 
 const NAME = 'tab';
+const VERSION = '5.0.0-alpha2';
 const DATA_KEY = 'bs.tab';
 const EVENT_KEY = `.${DATA_KEY}`;
 const DATA_API_KEY = '.data-api';
@@ -44,8 +45,7 @@ const SELECTOR_DROPDOWN = '.dropdown';
 const SELECTOR_NAV_LIST_GROUP = '.nav, .list-group';
 const SELECTOR_ACTIVE = '.active';
 const SELECTOR_ACTIVE_UL = ':scope > li > .active';
-const SELECTOR_DATA_TOGGLE =
-  '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]';
+const SELECTOR_DATA_TOGGLE = '[data-toggle="tab"], [data-toggle="pill"], [data-toggle="list"]';
 const SELECTOR_DROPDOWN_TOGGLE = '.dropdown-toggle';
 const SELECTOR_DROPDOWN_ACTIVE_CHILD = ':scope > .dropdown-menu .active';
 
@@ -55,11 +55,17 @@ const SELECTOR_DROPDOWN_ACTIVE_CHILD = ':scope > .dropdown-menu .active';
  * ------------------------------------------------------------------------
  */
 
-class Tab extends BaseComponent {
+class Tab {
+  constructor(element) {
+    this._element = element;
+
+    Data.setData(this._element, DATA_KEY, this);
+  }
+
   // Getters
 
-  static get DATA_KEY() {
-    return DATA_KEY;
+  static get VERSION() {
+    return VERSION;
   }
 
   // Public
@@ -87,11 +93,13 @@ class Tab extends BaseComponent {
       previous = previous[previous.length - 1];
     }
 
-    const hideEvent = previous
-      ? EventHandler.trigger(previous, EVENT_HIDE, {
-          relatedTarget: this._element,
-        })
-      : null;
+    let hideEvent = null;
+
+    if (previous) {
+      hideEvent = EventHandler.trigger(previous, EVENT_HIDE, {
+        relatedTarget: this._element,
+      });
+    }
 
     const showEvent = EventHandler.trigger(this._element, EVENT_SHOW, {
       relatedTarget: previous,
@@ -119,6 +127,11 @@ class Tab extends BaseComponent {
     }
   }
 
+  dispose() {
+    Data.removeData(this._element, DATA_KEY);
+    this._element = null;
+  }
+
   // Private
 
   _activate(element, container, callback) {
@@ -136,7 +149,7 @@ class Tab extends BaseComponent {
       const transitionDuration = getTransitionDurationFromElement(active);
       active.classList.remove(CLASS_NAME_SHOW);
 
-      EventHandler.one(active, 'transitionend', complete);
+      EventHandler.one(active, TRANSITION_END, complete);
       emulateTransitionEnd(active, transitionDuration);
     } else {
       complete();
@@ -204,6 +217,10 @@ class Tab extends BaseComponent {
       }
     });
   }
+
+  static getInstance(element) {
+    return Data.getData(element, DATA_KEY);
+  }
 }
 
 /**
@@ -219,13 +236,23 @@ EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (
   data.show();
 });
 
+const $ = getjQuery();
+
 /**
  * ------------------------------------------------------------------------
  * jQuery
  * ------------------------------------------------------------------------
- * add .Tab to jQuery only if jQuery is present
+ * add .tab to jQuery only if jQuery is present
  */
-
-defineJQueryPlugin(NAME, Tab);
+/* istanbul ignore if */
+if ($) {
+  const JQUERY_NO_CONFLICT = $.fn[NAME];
+  $.fn[NAME] = Tab.jQueryInterface;
+  $.fn[NAME].Constructor = Tab;
+  $.fn[NAME].noConflict = () => {
+    $.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Tab.jQueryInterface;
+  };
+}
 
 export default Tab;

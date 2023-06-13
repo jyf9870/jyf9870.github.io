@@ -1,19 +1,19 @@
 /**
  * --------------------------------------------------------------------------
- * Bootstrap (v5.0.0-beta2): alert.js
+ * Bootstrap (v5.0.0-alpha2): alert.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
 
 import {
-  defineJQueryPlugin,
+  getjQuery,
+  TRANSITION_END,
   emulateTransitionEnd,
   getElementFromSelector,
   getTransitionDurationFromElement,
 } from './util/index';
 import Data from './dom/data';
 import EventHandler from './dom/event-handler';
-import BaseComponent from './base-component';
 
 /**
  * ------------------------------------------------------------------------
@@ -22,19 +22,20 @@ import BaseComponent from './base-component';
  */
 
 const NAME = 'alert';
+const VERSION = '5.0.0-alpha2';
 const DATA_KEY = 'bs.alert';
 const EVENT_KEY = `.${DATA_KEY}`;
 const DATA_API_KEY = '.data-api';
 
-const SELECTOR_DISMISS = '[data-bs-dismiss="alert"]';
+const SELECTOR_DISMISS = '[data-dismiss="alert"]';
 
 const EVENT_CLOSE = `close${EVENT_KEY}`;
 const EVENT_CLOSED = `closed${EVENT_KEY}`;
 const EVENT_CLICK_DATA_API = `click${EVENT_KEY}${DATA_API_KEY}`;
 
-const CLASS_NAME_ALERT = 'alert';
-const CLASS_NAME_FADE = 'fade';
-const CLASS_NAME_SHOW = 'show';
+const CLASSNAME_ALERT = 'alert';
+const CLASSNAME_FADE = 'fade';
+const CLASSNAME_SHOW = 'show';
 
 /**
  * ------------------------------------------------------------------------
@@ -42,11 +43,19 @@ const CLASS_NAME_SHOW = 'show';
  * ------------------------------------------------------------------------
  */
 
-class Alert extends BaseComponent {
+class Alert {
+  constructor(element) {
+    this._element = element;
+
+    if (this._element) {
+      Data.setData(element, DATA_KEY, this);
+    }
+  }
+
   // Getters
 
-  static get DATA_KEY() {
-    return DATA_KEY;
+  static get VERSION() {
+    return VERSION;
   }
 
   // Public
@@ -62,10 +71,15 @@ class Alert extends BaseComponent {
     this._removeElement(rootElement);
   }
 
+  dispose() {
+    Data.removeData(this._element, DATA_KEY);
+    this._element = null;
+  }
+
   // Private
 
   _getRootElement(element) {
-    return getElementFromSelector(element) || element.closest(`.${CLASS_NAME_ALERT}`);
+    return getElementFromSelector(element) || element.closest(`.${CLASSNAME_ALERT}`);
   }
 
   _triggerCloseEvent(element) {
@@ -73,16 +87,16 @@ class Alert extends BaseComponent {
   }
 
   _removeElement(element) {
-    element.classList.remove(CLASS_NAME_SHOW);
+    element.classList.remove(CLASSNAME_SHOW);
 
-    if (!element.classList.contains(CLASS_NAME_FADE)) {
+    if (!element.classList.contains(CLASSNAME_FADE)) {
       this._destroyElement(element);
       return;
     }
 
     const transitionDuration = getTransitionDurationFromElement(element);
 
-    EventHandler.one(element, 'transitionend', () => this._destroyElement(element));
+    EventHandler.one(element, TRANSITION_END, () => this._destroyElement(element));
     emulateTransitionEnd(element, transitionDuration);
   }
 
@@ -119,6 +133,10 @@ class Alert extends BaseComponent {
       alertInstance.close(this);
     };
   }
+
+  static getInstance(element) {
+    return Data.getData(element, DATA_KEY);
+  }
 }
 
 /**
@@ -128,13 +146,24 @@ class Alert extends BaseComponent {
  */
 EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DISMISS, Alert.handleDismiss(new Alert()));
 
+const $ = getjQuery();
+
 /**
  * ------------------------------------------------------------------------
  * jQuery
  * ------------------------------------------------------------------------
- * add .Alert to jQuery only if jQuery is present
+ * add .alert to jQuery only if jQuery is present
  */
 
-defineJQueryPlugin(NAME, Alert);
+/* istanbul ignore if */
+if ($) {
+  const JQUERY_NO_CONFLICT = $.fn[NAME];
+  $.fn[NAME] = Alert.jQueryInterface;
+  $.fn[NAME].Constructor = Alert;
+  $.fn[NAME].noConflict = () => {
+    $.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Alert.jQueryInterface;
+  };
+}
 
 export default Alert;

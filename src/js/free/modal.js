@@ -1,7 +1,7 @@
-import { getjQuery, getSelectorFromElement, onDOMContentLoaded } from '../mdb/util/index';
+import { getjQuery, getSelectorFromElement } from '../mdb/util/index';
 import EventHandler from '../mdb/dom/event-handler';
 import SelectorEngine from '../mdb/dom/selector-engine';
-import BSModal from '../bootstrap/mdb-prefix/modal';
+import BSModal from '../bootstrap/src/modal';
 
 /**
  * ------------------------------------------------------------------------
@@ -25,7 +25,7 @@ const EVENT_HIDDEN = `hidden${EVENT_KEY}`;
 const EVENT_SHOW = `show${EVENT_KEY}`;
 const EVENT_SHOWN = `shown${EVENT_KEY}`;
 
-const SELECTOR_DATA_TOGGLE = '[data-mdb-toggle="modal"]';
+const SELECTOR_DATA_TOGGLE = '[data-toggle="modal"]';
 
 class Modal extends BSModal {
   constructor(element, data) {
@@ -109,21 +109,19 @@ SelectorEngine.find(SELECTOR_DATA_TOGGLE).forEach((el) => {
  * ------------------------------------------------------------------------
  * jQuery
  * ------------------------------------------------------------------------
- * add .modal to jQuery only if jQuery is present
+ * add .rating to jQuery only if jQuery is present
  */
 
-onDOMContentLoaded(() => {
-  const $ = getjQuery();
+const $ = getjQuery();
 
-  if ($) {
-    const JQUERY_NO_CONFLICT = $.fn[NAME];
-    $.fn[NAME] = Modal.jQueryInterface;
-    $.fn[NAME].Constructor = Modal;
-    $.fn[NAME].noConflict = () => {
-      $.fn[NAME] = JQUERY_NO_CONFLICT;
-      return Modal.jQueryInterface;
-    };
-  }
-});
+if ($) {
+  const JQUERY_NO_CONFLICT = $.fn[NAME];
+  $.fn[NAME] = Modal.jQueryInterface;
+  $.fn[NAME].Constructor = Modal;
+  $.fn[NAME].noConflict = () => {
+    $.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Modal.jQueryInterface;
+  };
+}
 
 export default Modal;

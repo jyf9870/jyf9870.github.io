@@ -1,7 +1,7 @@
-import { getjQuery, getElementFromSelector, onDOMContentLoaded } from '../mdb/util/index';
+import { getjQuery, getElementFromSelector } from '../mdb/util/index';
 import EventHandler from '../mdb/dom/event-handler';
 import SelectorEngine from '../mdb/dom/selector-engine';
-import BSTab from '../bootstrap/mdb-prefix/tab';
+import BSTab from '../bootstrap/src/tab';
 
 /**
  * ------------------------------------------------------------------------
@@ -31,8 +31,7 @@ const SELECTOR_NAV_LIST_GROUP = '.nav, .list-group';
 const SELECTOR_ACTIVE = '.active';
 const SELECTOR_ACTIVE_UL = ':scope > li > .active';
 
-const SELECTOR_DATA_TOGGLE =
-  '[data-mdb-toggle="tab"], [data-mdb-toggle="pill"], [data-mdb-toggle="list"]';
+const SELECTOR_DATA_TOGGLE = '[data-toggle="tab"], [data-toggle="pill"], [data-toggle="list"]';
 
 class Tab extends BSTab {
   constructor(element) {
@@ -181,18 +180,16 @@ SelectorEngine.find(SELECTOR_DATA_TOGGLE).forEach((el) => {
  * add .rating to jQuery only if jQuery is present
  */
 
-onDOMContentLoaded(() => {
-  const $ = getjQuery();
+const $ = getjQuery();
 
-  if ($) {
-    const JQUERY_NO_CONFLICT = $.fn[NAME];
-    $.fn[NAME] = Tab.jQueryInterface;
-    $.fn[NAME].Constructor = Tab;
-    $.fn[NAME].noConflict = () => {
-      $.fn[NAME] = JQUERY_NO_CONFLICT;
-      return Tab.jQueryInterface;
-    };
-  }
-});
+if ($) {
+  const JQUERY_NO_CONFLICT = $.fn[NAME];
+  $.fn[NAME] = Tab.jQueryInterface;
+  $.fn[NAME].Constructor = Tab;
+  $.fn[NAME].noConflict = () => {
+    $.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Tab.jQueryInterface;
+  };
+}
 
 export default Tab;

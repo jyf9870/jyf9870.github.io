@@ -1,12 +1,13 @@
 /**
  * --------------------------------------------------------------------------
- * Bootstrap (v5.0.0-beta2): toast.js
+ * Bootstrap (v5.0.0-alpha2): toast.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
 
 import {
-  defineJQueryPlugin,
+  getjQuery,
+  TRANSITION_END,
   emulateTransitionEnd,
   getTransitionDurationFromElement,
   reflow,
@@ -15,7 +16,6 @@ import {
 import Data from './dom/data';
 import EventHandler from './dom/event-handler';
 import Manipulator from './dom/manipulator';
-import BaseComponent from './base-component';
 
 /**
  * ------------------------------------------------------------------------
@@ -24,6 +24,7 @@ import BaseComponent from './base-component';
  */
 
 const NAME = 'toast';
+const VERSION = '5.0.0-alpha2';
 const DATA_KEY = 'bs.toast';
 const EVENT_KEY = `.${DATA_KEY}`;
 
@@ -50,7 +51,7 @@ const Default = {
   delay: 5000,
 };
 
-const SELECTOR_DATA_DISMISS = '[data-bs-dismiss="toast"]';
+const SELECTOR_DATA_DISMISS = '[data-dismiss="toast"]';
 
 /**
  * ------------------------------------------------------------------------
@@ -58,16 +59,20 @@ const SELECTOR_DATA_DISMISS = '[data-bs-dismiss="toast"]';
  * ------------------------------------------------------------------------
  */
 
-class Toast extends BaseComponent {
+class Toast {
   constructor(element, config) {
-    super(element);
-
+    this._element = element;
     this._config = this._getConfig(config);
     this._timeout = null;
     this._setListeners();
+    Data.setData(element, DATA_KEY, this);
   }
 
   // Getters
+
+  static get VERSION() {
+    return VERSION;
+  }
 
   static get DefaultType() {
     return DefaultType;
@@ -75,10 +80,6 @@ class Toast extends BaseComponent {
 
   static get Default() {
     return Default;
-  }
-
-  static get DATA_KEY() {
-    return DATA_KEY;
   }
 
   // Public
@@ -115,7 +116,7 @@ class Toast extends BaseComponent {
     if (this._config.animation) {
       const transitionDuration = getTransitionDurationFromElement(this._element);
 
-      EventHandler.one(this._element, 'transitionend', complete);
+      EventHandler.one(this._element, TRANSITION_END, complete);
       emulateTransitionEnd(this._element, transitionDuration);
     } else {
       complete();
@@ -142,7 +143,7 @@ class Toast extends BaseComponent {
     if (this._config.animation) {
       const transitionDuration = getTransitionDurationFromElement(this._element);
 
-      EventHandler.one(this._element, 'transitionend', complete);
+      EventHandler.one(this._element, TRANSITION_END, complete);
       emulateTransitionEnd(this._element, transitionDuration);
     } else {
       complete();
@@ -157,8 +158,9 @@ class Toast extends BaseComponent {
     }
 
     EventHandler.off(this._element, EVENT_CLICK_DISMISS);
+    Data.removeData(this._element, DATA_KEY);
 
-    super.dispose();
+    this._element = null;
     this._config = null;
   }
 
@@ -205,15 +207,29 @@ class Toast extends BaseComponent {
       }
     });
   }
+
+  static getInstance(element) {
+    return Data.getData(element, DATA_KEY);
+  }
 }
+
+const $ = getjQuery();
 
 /**
  * ------------------------------------------------------------------------
  * jQuery
  * ------------------------------------------------------------------------
- * add .Toast to jQuery only if jQuery is present
+ *  add .toast to jQuery only if jQuery is present
  */
-
-defineJQueryPlugin(NAME, Toast);
+/* istanbul ignore if */
+if ($) {
+  const JQUERY_NO_CONFLICT = $.fn[NAME];
+  $.fn[NAME] = Toast.jQueryInterface;
+  $.fn[NAME].Constructor = Toast;
+  $.fn[NAME].noConflict = () => {
+    $.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Toast.jQueryInterface;
+  };
+}
 
 export default Toast;

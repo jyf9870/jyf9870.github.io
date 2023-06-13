@@ -1,11 +1,11 @@
 /**
  * --------------------------------------------------------------------------
- * Bootstrap (v5.0.0-beta2): util/sanitizer.js
+ * Bootstrap (v5.0.0-alpha2): util/sanitizer.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
 
-const uriAttrs = new Set([
+const uriAttrs = [
   'background',
   'cite',
   'href',
@@ -14,7 +14,7 @@ const uriAttrs = new Set([
   'poster',
   'src',
   'xlink:href',
-]);
+];
 
 const ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
 
@@ -35,8 +35,8 @@ const DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|vid
 const allowedAttribute = (attr, allowedAttributeList) => {
   const attrName = attr.nodeName.toLowerCase();
 
-  if (allowedAttributeList.includes(attrName)) {
-    if (uriAttrs.has(attrName)) {
+  if (allowedAttributeList.indexOf(attrName) !== -1) {
+    if (uriAttrs.indexOf(attrName) !== -1) {
       return Boolean(
         attr.nodeValue.match(SAFE_URL_PATTERN) || attr.nodeValue.match(DATA_URL_PATTERN)
       );
@@ -109,7 +109,7 @@ export function sanitizeHtml(unsafeHtml, allowList, sanitizeFn) {
     const el = elements[i];
     const elName = el.nodeName.toLowerCase();
 
-    if (!allowlistKeys.includes(elName)) {
+    if (allowlistKeys.indexOf(elName) === -1) {
       el.parentNode.removeChild(el);
 
       continue;

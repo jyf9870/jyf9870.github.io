@@ -1,20 +1,16 @@
 /*!
- * Bootstrap button.js v5.0.0-beta2 (https://getbootstrap.com/)
- * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+ * Bootstrap button.js v5.0.0-alpha2 (https://getbootstrap.com/)
+ * Copyright 2011-2020 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined'
-    ? (module.exports = factory(
-        require('./dom/data.js'),
-        require('./dom/event-handler.js'),
-        require('./base-component.js')
-      ))
+    ? (module.exports = factory(require('./dom/data.js'), require('./dom/event-handler.js')))
     : typeof define === 'function' && define.amd
-    ? define(['./dom/data', './dom/event-handler', './base-component'], factory)
+    ? define(['./dom/data.js', './dom/event-handler.js'], factory)
     : ((global = typeof globalThis !== 'undefined' ? globalThis : global || self),
-      (global.Button = factory(global.Data, global.EventHandler, global.Base)));
-})(this, function (Data, EventHandler, BaseComponent) {
+      (global.Button = factory(global.Data, global.EventHandler)));
+})(this, function (Data, EventHandler) {
   'use strict';
 
   function _interopDefaultLegacy(e) {
@@ -23,7 +19,24 @@
 
   var Data__default = /*#__PURE__*/ _interopDefaultLegacy(Data);
   var EventHandler__default = /*#__PURE__*/ _interopDefaultLegacy(EventHandler);
-  var BaseComponent__default = /*#__PURE__*/ _interopDefaultLegacy(BaseComponent);
+
+  /**
+   * --------------------------------------------------------------------------
+   * Bootstrap (v5.0.0-alpha2): util/index.js
+   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+   * --------------------------------------------------------------------------
+   */
+
+  var getjQuery = function getjQuery() {
+    var _window = window,
+      jQuery = _window.jQuery;
+
+    if (jQuery && !document.body.hasAttribute('data-no-jquery')) {
+      return jQuery;
+    }
+
+    return null;
+  };
 
   function _defineProperties(target, props) {
     for (var i = 0; i < props.length; i++) {
@@ -40,71 +53,6 @@
     if (staticProps) _defineProperties(Constructor, staticProps);
     return Constructor;
   }
-
-  function _inheritsLoose(subClass, superClass) {
-    subClass.prototype = Object.create(superClass.prototype);
-    subClass.prototype.constructor = subClass;
-
-    _setPrototypeOf(subClass, superClass);
-  }
-
-  function _setPrototypeOf(o, p) {
-    _setPrototypeOf =
-      Object.setPrototypeOf ||
-      function _setPrototypeOf(o, p) {
-        o.__proto__ = p;
-        return o;
-      };
-
-    return _setPrototypeOf(o, p);
-  }
-
-  /**
-   * --------------------------------------------------------------------------
-   * Bootstrap (v5.0.0-beta2): util/index.js
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
-   * --------------------------------------------------------------------------
-   */
-
-  var getjQuery = function getjQuery() {
-    var _window = window,
-      jQuery = _window.jQuery;
-
-    if (jQuery && !document.body.hasAttribute('data-bs-no-jquery')) {
-      return jQuery;
-    }
-
-    return null;
-  };
-
-  var onDOMContentLoaded = function onDOMContentLoaded(callback) {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', callback);
-    } else {
-      callback();
-    }
-  };
-
-  document.documentElement.dir === 'rtl';
-
-  var defineJQueryPlugin = function defineJQueryPlugin(name, plugin) {
-    onDOMContentLoaded(function () {
-      var $ = getjQuery();
-      /* istanbul ignore if */
-
-      if ($) {
-        var JQUERY_NO_CONFLICT = $.fn[name];
-        $.fn[name] = plugin.jQueryInterface;
-        $.fn[name].Constructor = plugin;
-
-        $.fn[name].noConflict = function () {
-          $.fn[name] = JQUERY_NO_CONFLICT;
-          return plugin.jQueryInterface;
-        };
-      }
-    });
-  };
-
   /**
    * ------------------------------------------------------------------------
    * Constants
@@ -112,11 +60,12 @@
    */
 
   var NAME = 'button';
+  var VERSION = '5.0.0-alpha2';
   var DATA_KEY = 'bs.button';
   var EVENT_KEY = '.' + DATA_KEY;
   var DATA_API_KEY = '.data-api';
   var CLASS_NAME_ACTIVE = 'active';
-  var SELECTOR_DATA_TOGGLE = '[data-bs-toggle="button"]';
+  var SELECTOR_DATA_TOGGLE = '[data-toggle="button"]';
   var EVENT_CLICK_DATA_API = 'click' + EVENT_KEY + DATA_API_KEY;
   /**
    * ------------------------------------------------------------------------
@@ -124,12 +73,11 @@
    * ------------------------------------------------------------------------
    */
 
-  var Button = /*#__PURE__*/ (function (_BaseComponent) {
-    _inheritsLoose(Button, _BaseComponent);
-
-    function Button() {
-      return _BaseComponent.apply(this, arguments) || this;
-    }
+  var Button = /*#__PURE__*/ (function () {
+    function Button(element) {
+      this._element = element;
+      Data__default['default'].setData(element, DATA_KEY, this);
+    } // Getters
 
     var _proto = Button.prototype;
 
@@ -137,6 +85,11 @@
     _proto.toggle = function toggle() {
       // Toggle class and sync the `aria-pressed` attribute with the return value of the `.toggle()` method
       this._element.setAttribute('aria-pressed', this._element.classList.toggle(CLASS_NAME_ACTIVE));
+    };
+
+    _proto.dispose = function dispose() {
+      Data__default['default'].removeData(this._element, DATA_KEY);
+      this._element = null;
     }; // Static
 
     Button.jQueryInterface = function jQueryInterface(config) {
@@ -153,18 +106,21 @@
       });
     };
 
+    Button.getInstance = function getInstance(element) {
+      return Data__default['default'].getData(element, DATA_KEY);
+    };
+
     _createClass(Button, null, [
       {
-        key: 'DATA_KEY',
-        // Getters
+        key: 'VERSION',
         get: function get() {
-          return DATA_KEY;
+          return VERSION;
         },
       },
     ]);
 
     return Button;
-  })(BaseComponent__default['default']);
+  })();
   /**
    * ------------------------------------------------------------------------
    * Data Api implementation
@@ -187,14 +143,26 @@
       data.toggle();
     }
   );
+  var $ = getjQuery();
   /**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   * add .Button to jQuery only if jQuery is present
+   * add .button to jQuery only if jQuery is present
    */
 
-  defineJQueryPlugin(NAME, Button);
+  /* istanbul ignore if */
+
+  if ($) {
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    $.fn[NAME] = Button.jQueryInterface;
+    $.fn[NAME].Constructor = Button;
+
+    $.fn[NAME].noConflict = function () {
+      $.fn[NAME] = JQUERY_NO_CONFLICT;
+      return Button.jQueryInterface;
+    };
+  }
 
   return Button;
 });

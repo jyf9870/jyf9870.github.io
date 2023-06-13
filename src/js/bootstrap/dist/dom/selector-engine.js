@@ -1,32 +1,35 @@
 /*!
- * Bootstrap selector-engine.js v5.0.0-beta2 (https://getbootstrap.com/)
- * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+ * Bootstrap selector-engine.js v5.0.0-alpha2 (https://getbootstrap.com/)
+ * Copyright 2011-2020 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined'
-    ? (module.exports = factory())
+    ? (module.exports = factory(require('./polyfill.js')))
     : typeof define === 'function' && define.amd
-    ? define(factory)
+    ? define(['./polyfill.js'], factory)
     : ((global = typeof globalThis !== 'undefined' ? globalThis : global || self),
-      (global.SelectorEngine = factory()));
-})(this, function () {
+      (global.SelectorEngine = factory(global.Polyfill)));
+})(this, function (polyfill_js) {
   'use strict';
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.0.0-beta2): dom/selector-engine.js
+   * Bootstrap (v5.0.0-alpha2): dom/selector-engine.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
-
   /**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
    */
+
   var NODE_TEXT = 3;
   var SelectorEngine = {
+    matches: function matches(element, selector) {
+      return element.matches(selector);
+    },
     find: function find(selector, element) {
       var _ref;
 
@@ -34,22 +37,21 @@
         element = document.documentElement;
       }
 
-      return (_ref = []).concat.apply(
-        _ref,
-        Element.prototype.querySelectorAll.call(element, selector)
-      );
+      return (_ref = []).concat.apply(_ref, polyfill_js.find.call(element, selector));
     },
     findOne: function findOne(selector, element) {
       if (element === void 0) {
         element = document.documentElement;
       }
 
-      return Element.prototype.querySelector.call(element, selector);
+      return polyfill_js.findOne.call(element, selector);
     },
     children: function children(element, selector) {
       var _ref2;
 
-      return (_ref2 = []).concat.apply(_ref2, element.children).filter(function (child) {
+      var children = (_ref2 = []).concat.apply(_ref2, element.children);
+
+      return children.filter(function (child) {
         return child.matches(selector);
       });
     },
@@ -62,7 +64,7 @@
         ancestor.nodeType === Node.ELEMENT_NODE &&
         ancestor.nodeType !== NODE_TEXT
       ) {
-        if (ancestor.matches(selector)) {
+        if (this.matches(ancestor, selector)) {
           parents.push(ancestor);
         }
 
@@ -88,7 +90,7 @@
       var next = element.nextElementSibling;
 
       while (next) {
-        if (next.matches(selector)) {
+        if (this.matches(next, selector)) {
           return [next];
         }
 

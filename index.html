@@ -1,86 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <head>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-85R7EF0CK1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-85R7EF0CK1");
+    </script>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Material Design for Bootstrap</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
-    <!-- Google Fonts Roboto -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
-    <!-- MDB -->
-    <link rel="stylesheet" href="css/mdb.min.css" />
-    <!-- Custom styles -->
-    <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-      <!--Main Navigation-->
-  <header>
-    <style>
-      #intro {
-        background-image: url("https://mdbootstrap.com/img/new/fluid/city/018.jpg");
-        height: 100vh;
+    <title>Yifan's wonderland</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
+    />
+    <link rel="icon" href="images/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@master/devicon.min.css"
+    />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/mdb.min.css" rel="stylesheet" />
+    <link href="css/style.min.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
+    <link href="css/card.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/devices.min.css" type="text/css" />
+    <style type="text/css">
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100%;
       }
 
-      /* Height for devices larger than 576px */
-      @media (min-width: 992px) {
-        #intro {
-          margin-top: -58.59px;
+      @media (min-width: 800px) and (max-width: 850px) {
+        .navbar:not(.top-nav-collapse) {
+          background: #1c2331 !important;
         }
       }
-
-      .navbar .nav-link {
-        color: #fff !important;
-      }
     </style>
+  </head>
 
+  <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;">
-      <div class="container-fluid">
-        <!-- Navbar brand -->
-        <a class="navbar-brand nav-link" target="_blank" href="https://mdbootstrap.com/docs/standard/">
-          <strong>MDB</strong>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <strong>Yifan Jiang</strong>
         </a>
-        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
-          aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarExample01">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item active">
-              <a class="nav-link" aria-current="page" href="#intro">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA" rel="nofollow"
-                target="_blank">Learn Bootstrap 5</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://mdbootstrap.com/docs/standard/" target="_blank">Download MDB UI KIT</a>
-            </li>
-          </ul>
 
-          <ul class="navbar-nav d-flex flex-row">
-            <!-- Icons -->
-            <li class="nav-item me-3 me-lg-0">
-              <a class="nav-link" href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA" rel="nofollow"
-                target="_blank">
-                <i class="fab fa-youtube"></i>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Left -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a
+                class="nav-link"
+                href="https://blog.yushunchen.com/"
+                target="_blank"
+                >Blog
+                <span class="sr-only">(current)</span>
               </a>
             </li>
-            <li class="nav-item me-3 me-lg-0">
-              <a class="nav-link" href="https://www.facebook.com/mdbootstrap" rel="nofollow" target="_blank">
-                <i class="fab fa-facebook-f"></i>
-              </a>
+            <li class="nav-item">
+              <a class="nav-link" href="#aboutme">About</a>
             </li>
-            <li class="nav-item me-3 me-lg-0">
-              <a class="nav-link" href="https://twitter.com/MDBootstrap" rel="nofollow" target="_blank">
-                <i class="fab fa-twitter"></i>
-              </a>
+            <li class="nav-item">
+              <a class="nav-link" href="#education">Education</a>
             </li>
-            <li class="nav-item me-3 me-lg-0">
-              <a class="nav-link" href="https://github.com/mdbootstrap/mdb-ui-kit" rel="nofollow" target="_blank">
+            <li class="nav-item">
+              <a class="nav-link" href="#skills">Skills</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#projects">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#interests">Interests</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#new">New</a>
+            </li>
+     
+          </ul>
+          <!-- Right -->
+          <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item">
+              <a href="#bottom" class="nav-link">
+                <i class="fas fa-address-book"></i
+              ></a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://github.com/jyf9870/"
+                rel="nofollow"
+                target="_blank"
+              >
                 <i class="fab fa-github"></i>
+              </a>
+            </li>
+            <li class="nav-item me-3 me-lg-0">
+              <a
+                class="nav-link"
+                href="https://www.linkedin.com/in/yifan-jiang-0841a2255/"
+                rel="nofollow"
+                target="_blank"
+              >
+                <i class="fab fa-linkedin"></i>
               </a>
             </li>
           </ul>
@@ -89,248 +137,676 @@
     </nav>
     <!-- Navbar -->
 
-    <!-- Background image -->
-    <div id="intro" class="bg-image shadow-2-strong">
-      <div class="mask" style="background-color: rgba(0, 0, 0, 0.8);">
-        <div class="container d-flex align-items-center justify-content-center text-center h-100">
-          <div class="text-white">
-            <h1 class="mb-3">Hi, I am Yifan Jiang!</h1>
-            <h5 class="mb-4">Best & free guide of responsive web design</h5>
-            <a class="btn btn-outline-light btn-lg m-2" href="https://www.youtube.com/watch?v=c9B4TPnak1A" role="button"
-              rel="nofollow" target="_blank">Start tutorial</a>
-            <a class="btn btn-outline-light btn-lg m-2" href="https://mdbootstrap.com/docs/standard/" target="_blank"
-              role="button">Download MDB UI KIT</a>
+    <!--Carousel Wrapper-->
+    <div
+      id="carousel-example-1z"
+      class="carousel slide carousel-fade"
+      data-ride="carousel"
+    >
+      <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+          <div class="view">
+            <!--Video source-->
+            <video class="video-intro" autoplay loop muted>
+              <source
+                src="https://mdbcdn.b-cdn.net/img/video/Tropical.mp4"
+                type="video/mp4"
+                loop
+                class="hover-to-play w-100"
+              />
+            </video>
+            <div
+              class="mask rgba-black-light d-flex justify-content-center align-items-center"
+            >
+              <div class="text-center white-text mx-5 wow fadeIn">
+                <h1 id="typing-text" class="mb-4">
+                  <strong>Hi, this is Yifan Jiang!</strong>
+                </h1>
+                <p>
+                  <i>A programmer who wants to explore the world</i>
+                </p>
+                <p>
+                  <strong
+                    >M.Eng. Electrical and Computer Engineering @ Duke
+                    graduate</strong
+                  >
+                </p>
+                <p class="mb-4 d-none d-md-block">
+                  <strong
+                    >M.S. Information ang Computing Science @ XJTLU
+                    undergraduate</strong
+                  >
+                </p>
+
+                <!-- <a target="_blank" href="files/Resume-8-29.pdf" class="btn btn-outline-white">Resume
+                <i class="fas fa-graduation-cap ml-2"></i>
+              </a> -->
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <div id="aboutme"></div>
     </div>
-    <!-- Background image -->
-  </header>
-  <!--Main Navigation-->
+    <!--/.Carousel Wrapper-->
 
-  <!--Main layout-->
-  <main class="mt-5">
-    <div class="container">
-      <!--Section: Content-->
-      <section>
+    <!--Main layout-->
+    <main>
+      <div class="container">
+        <section class="mt-5 wow fadeIn">
+          <div class="row">
+            <div class="col-md-3 mb-4">
+              <img
+                src="images/new_profile.jpeg"
+                class="img-fluid z-depth-1-half wow rollIn"
+                style="
+                  border-radius: 50%;
+                  width: 200px;
+                  height: 200px;
+                  margin-left: 15%;
+                "
+                alt="profile-pic"
+              />
+            </div>
+            <div class="col-md-9 mb-4">
+              <h1 class="h1 mb-3 wow bounce">About Me</h1>
+              <p class="wow bounceInRight">
+                I'm Yifan Jiang, a skilled ECE student from <a href="https://duke.edu/" target="_blank">Duke University</a> . With a Master's degree in
+                progress, my experience includes developing front-end UIs using
+                Vue.js and AngularJS, optimizing systems for safety protocols,
+                and contributing to projects like Risk Game and a Ride Sharing
+                Service Web-App. Proficient in Java, Python, C/C++, and various
+                frameworks, I'm a dedicated software engineer with a passion for
+                creating innovative solutions.
+              
+              </p>
+            </div>
+          </div>
+        </section>
+        <hr class="my-5" id="education" />
+
+        <!--Section: Education-->
+        <section>
+          <h1 class="h1 text-center mb-5 wow bounce">Education</h1>
+          <div class="row wow fadeIn">
+            <div class="col-lg-12 col-md-12 px-4">
+              <!-- Fake anchor, otherwise the fixed navbar on the top would cover the title -->
+              <a
+                id="education"
+                style="
+                  position: relative;
+                  top: -60px;
+                  display: block;
+                  height: 0;
+                  overflow: hidden;
+                "
+              ></a>
+              <ul class="list-unstyled">
+                <!-- Duke -->
+                <li class="media">
+                  <img
+                    src="images/duke_logo.jpeg"
+                    class="mr-3 wow rollIn"
+                    alt="..."
+                    style="border-radius: 50%"
+                    width="64"
+                    height="64"
+                  />
+                  <div class="media-body wow bounceInRight">
+                    <div class="row">
+                      <div class="col-lg-8">
+                        <h4 class="mt-0 mb-1" style="font-weight: bold">
+                          Duke University
+                        </h4>
+                        <p class="badge badge-primary">
+                          Sep 2022 - May 2024 (estimated)
+                        </p>
+                        <p class="badge badge-primary">M.S. ECE</p>
+                        <p class="badge badge-primary">GPA: NA/4.000</p>
+                        <p>
+                          Life is sometimes running in circles. I fell in love
+                          with Duke since my high school days in Charlotte, NC.
+                          I am so glad that I can come back to a familiar state
+                          and eventually become a student at Duke.
+                        </p>
+                        <p>
+                          Duke's rigorous academic standards and beautiful
+                          campus attract me the most. I visited Duke in 2018
+                          when I was in high school and took the picture to the
+                          right. I remember clearly walking on the campus and I
+                          have to say that time flies!
+                        </p>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="view overlay zoom">
+                          <img
+                            src="images/duke.jpeg"
+                            class="rounded img-fluid z-depth-1"
+                            style="
+                              height: 250px;
+                              width: 250px;
+                              margin-left: 30px;
+                              margin-top: 20px;
+                            "
+                            alt="duke_campus"
+                          />
+                          <div
+                            class="mask flex-center waves-effect waves-light"
+                          >
+                            <p class="white-text">Duke campus</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <br />
+                <!-- XJTLU -->
+                <li class="media">
+                  <img
+                    src="images/XJTLU-logo.png"
+                    class="mr-3 wow rollIn"
+                    alt="..."
+                    width="64"
+                    height="64"
+                  />
+                  <div class="media-body wow bounceInRight">
+                    <div class="row">
+                      <div class="col-lg-8">
+                        <h4 class="mt-0 mb-1" style="font-weight: bold">
+                          Xi'an Jiaotong-liverpool University
+                        </h4>
+                        <p class="badge badge-info">Sep 2018 - Jul 2022</p>
+                        <p class="badge badge-info">M.S ICS</p>
+                        <p class="badge badge-info">GPA: 3.81/4.0</p>
+<!--                   
+                        <p>
+                          I am also active outside of classrooms. I worked at
+                          <a
+                            href="https://www.housing.wisc.edu/dining/locations/liz/"
+                            target="_blank"
+                            >Liz's Market</a
+                          >
+                          which is a dining hall on campus. This was my first
+                          job in the United States. My second job is being a
+                          note-taker for the
+                          <a href="https://mcburney.wisc.edu/" target="_blank"
+                            >McBurney Disability Resource Center</a
+                          >.
+                        </p> -->
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="view overlay zoom">
+                          <img
+                            src="images/xjtlu.jpeg"
+                            class="rounded img-fluid z-depth-1"
+                            style="
+                              height: 250px;
+                              width: 250px;
+                              margin-left: 30px;
+                              margin-top: 20px;
+                            "
+                            alt="xjtlu"
+                          />
+                          <div
+                            class="mask flex-center waves-effect waves-light"
+                          >
+                            <p class="white-text">Inauguration Ceremony</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <br />
+      
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!--Section: Skills-->
+    <section>
+      <div class="container">
+        <hr class="mb-5" id="skills" />
+        <h1 class="h1 text-center mb-5 wow bounce">Skills</h1>
+        <!-- First Row -->
+        <div class="row wow fadeIn">
+          <div class="col-md-4 col-sm-6 d-flex justify-content-center">
+            <div class="floating skill-logo">
+              <!-- From Devicon -->
+              <!-- Java -->
+              <svg viewBox="0 0 128 128">
+                <path
+                  fill="#0074BD"
+                  d="M52.581 67.817s-3.284 1.911 2.341 2.557c6.814.778 10.297.666 17.805-.753 0 0 1.979 1.237 4.735 2.309-16.836 7.213-38.104-.418-24.881-4.113zM50.522 58.402s-3.684 2.729 1.945 3.311c7.28.751 13.027.813 22.979-1.103 0 0 1.373 1.396 3.536 2.157-20.352 5.954-43.021.469-28.46-4.365z"
+                ></path>
+                <path
+                  fill="#EA2D2E"
+                  d="M67.865 42.431c4.151 4.778-1.088 9.074-1.088 9.074s10.533-5.437 5.696-12.248c-4.519-6.349-7.982-9.502 10.771-20.378.001 0-29.438 7.35-15.379 23.552z"
+                ></path>
+                <path
+                  fill="#0074BD"
+                  d="M90.132 74.781s2.432 2.005-2.678 3.555c-9.716 2.943-40.444 3.831-48.979.117-3.066-1.335 2.687-3.187 4.496-3.576 1.887-.409 2.965-.334 2.965-.334-3.412-2.403-22.055 4.719-9.469 6.762 34.324 5.563 62.567-2.506 53.665-6.524zM54.162 48.647s-15.629 3.713-5.534 5.063c4.264.57 12.758.439 20.676-.225 6.469-.543 12.961-1.704 12.961-1.704s-2.279.978-3.93 2.104c-15.874 4.175-46.533 2.23-37.706-2.038 7.463-3.611 13.533-3.2 13.533-3.2zM82.2 64.317c16.135-8.382 8.674-16.438 3.467-15.353-1.273.266-1.845.496-1.845.496s.475-.744 1.378-1.063c10.302-3.62 18.223 10.681-3.322 16.345 0 0 .247-.224.322-.425z"
+                ></path>
+                <path
+                  fill="#EA2D2E"
+                  d="M72.474 1.313s8.935 8.939-8.476 22.682c-13.962 11.027-3.184 17.313-.006 24.498-8.15-7.354-14.128-13.828-10.118-19.852 5.889-8.842 22.204-13.131 18.6-27.328z"
+                ></path>
+                <path
+                  fill="#0074BD"
+                  d="M55.749 87.039c15.484.99 39.269-.551 39.832-7.878 0 0-1.082 2.777-12.799 4.981-13.218 2.488-29.523 2.199-39.191.603 0 0 1.98 1.64 12.158 2.294z"
+                ></path>
+                <path
+                  fill="#EA2D2E"
+                  d="M94.866 100.181h-.472v-.264h1.27v.264h-.47v1.317h-.329l.001-1.317zm2.535.066h-.006l-.468 1.251h-.216l-.465-1.251h-.005v1.251h-.312v-1.581h.457l.431 1.119.432-1.119h.454v1.581h-.302v-1.251zM53.211 115.037c-1.46 1.266-3.004 1.978-4.391 1.978-1.974 0-3.045-1.186-3.045-3.085 0-2.055 1.146-3.56 5.738-3.56h1.697v4.667h.001zm4.031 4.548v-14.077c0-3.599-2.053-5.973-6.997-5.973-2.886 0-5.416.714-7.473 1.622l.592 2.493c1.62-.595 3.715-1.147 5.771-1.147 2.85 0 4.075 1.147 4.075 3.521v1.779h-1.424c-6.921 0-10.044 2.685-10.044 6.723 0 3.479 2.058 5.456 5.933 5.456 2.49 0 4.351-1.028 6.088-2.533l.316 2.137h3.163v-.001zM70.694 119.585h-5.027l-6.051-19.689h4.391l3.756 12.099.835 3.635c1.896-5.258 3.24-10.596 3.912-15.733h4.271c-1.143 6.481-3.203 13.598-6.087 19.688zM89.982 115.037c-1.465 1.266-3.01 1.978-4.392 1.978-1.976 0-3.046-1.186-3.046-3.085 0-2.055 1.149-3.56 5.736-3.56h1.701v4.667h.001zm4.033 4.548v-14.077c0-3.599-2.059-5.973-6.999-5.973-2.889 0-5.418.714-7.475 1.622l.593 2.493c1.62-.595 3.718-1.147 5.774-1.147 2.846 0 4.074 1.147 4.074 3.521v1.779h-1.424c-6.923 0-10.045 2.685-10.045 6.723 0 3.479 2.056 5.456 5.93 5.456 2.491 0 4.349-1.028 6.091-2.533l.318 2.137h3.163v-.001zM37.322 122.931c-1.147 1.679-3.005 3.008-5.037 3.757l-1.989-2.345c1.547-.794 2.872-2.075 3.489-3.269.532-1.063.753-2.43.753-5.701v-22.482h4.284v22.173c0 4.375-.348 6.144-1.5 7.867z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 d-flex justify-content-center">
+            <div class="floating">
+              <!-- R Language -->
+              <img src="images/Rlogo.svg" class="skill-logo" alt="Rlogo" />
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 d-flex justify-content-center">
+            <div class="floating skill-logo">
+              <!-- Python -->
+              <svg viewBox="0 0 128 128">
+                <linearGradient
+                  id="a"
+                  gradientUnits="userSpaceOnUse"
+                  x1="70.252"
+                  y1="1237.476"
+                  x2="170.659"
+                  y2="1151.089"
+                  gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)"
+                >
+                  <stop offset="0" stop-color="#5A9FD4"></stop>
+                  <stop offset="1" stop-color="#306998"></stop>
+                </linearGradient>
+                <path
+                  fill="url(#a)"
+                  d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137h-33.961c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491v-11.282c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548v-23.513c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zm-13.354 7.569c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z"
+                ></path>
+                <linearGradient
+                  id="b"
+                  gradientUnits="userSpaceOnUse"
+                  x1="209.474"
+                  y1="1098.811"
+                  x2="173.62"
+                  y2="1149.537"
+                  gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)"
+                >
+                  <stop offset="0" stop-color="#FFD43B"></stop>
+                  <stop offset="1" stop-color="#FFE873"></stop>
+                </linearGradient>
+                <path
+                  fill="url(#b)"
+                  d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655h-24.665c-6.756 0-12.346 5.783-12.346 12.549v23.515c0 6.691 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412h-24.664v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zm-13.873 59.547c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z"
+                ></path>
+                <radialGradient
+                  id="c"
+                  cx="1825.678"
+                  cy="444.45"
+                  r="26.743"
+                  gradientTransform="matrix(0 -.24 -1.055 0 532.979 557.576)"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop
+                    offset="0"
+                    stop-color="#B8B8B8"
+                    stop-opacity=".498"
+                  ></stop>
+                  <stop offset="1" stop-color="#7F7F7F" stop-opacity="0"></stop>
+                </radialGradient>
+                <path
+                  opacity=".444"
+                  fill="url(#c)"
+                  enable-background="new"
+                  d="M97.309 119.597c0 3.543-14.816 6.416-33.091 6.416-18.276 0-33.092-2.873-33.092-6.416 0-3.544 14.815-6.417 33.092-6.417 18.275 0 33.091 2.872 33.091 6.417z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <!-- Second row -->
+        <div class="row wow fadeIn">
+          <div class="col-md-2 col-sm-6 d-flex justify-content-center">
+            <div class="floating skill-logo">
+              <!-- HTML -->
+              <svg viewBox="0 0 128 128">
+                <path
+                  fill="#E44D26"
+                  d="M27.854 116.354l-8.043-90.211h88.378l-8.051 90.197-36.192 10.033z"
+                ></path>
+                <path
+                  fill="#F16529"
+                  d="M64 118.704l29.244-8.108 6.881-77.076h-36.125z"
+                ></path>
+                <path
+                  fill="#EBEBEB"
+                  d="M64 66.978h-14.641l-1.01-11.331h15.651v-11.064h-27.743l.264 2.969 2.72 30.489h24.759zM64 95.711l-.049.013-12.321-3.328-.788-8.823h-11.107l1.55 17.372 22.664 6.292.051-.015z"
+                ></path>
+                <path
+                  d="M28.034 1.627h5.622v5.556h5.144v-5.556h5.623v16.822h-5.623v-5.633h-5.143v5.633h-5.623v-16.822zM51.816 7.206h-4.95v-5.579h15.525v5.579h-4.952v11.243h-5.623v-11.243zM64.855 1.627h5.862l3.607 5.911 3.603-5.911h5.865v16.822h-5.601v-8.338l-3.867 5.981h-.098l-3.87-5.981v8.338h-5.502v-16.822zM86.591 1.627h5.624v11.262h7.907v5.561h-13.531v-16.823z"
+                ></path>
+                <path
+                  fill="#fff"
+                  d="M63.962 66.978v11.063h13.624l-1.284 14.349-12.34 3.331v11.51l22.682-6.286.166-1.87 2.6-29.127.27-2.97h-2.982zM63.962 44.583v11.064h26.725l.221-2.487.505-5.608.265-2.969z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-6 d-flex justify-content-center">
+            <div class="floating skill-logo">
+              <!-- CSS -->
+              <svg viewBox="0 0 128 128">
+                <path
+                  fill="#131313"
+                  d="M89.234 5.856h-7.384l7.679 8.333v3.967h-15.816v-4.645h7.678l-7.678-8.333v-3.971h15.521v4.649zm-18.657 0h-7.384l7.679 8.333v3.967h-15.817v-4.645h7.679l-7.679-8.333v-3.971h15.522v4.649zm-18.474.19h-7.968v7.271h7.968v4.839h-13.632v-16.949h13.632v4.839z"
+                ></path>
+                <path
+                  fill="#1572B6"
+                  d="M27.613 116.706l-8.097-90.813h88.967l-8.104 90.798-36.434 10.102-36.332-10.087z"
+                ></path>
+                <path
+                  fill="#33A9DC"
+                  d="M64.001 119.072l29.439-8.162 6.926-77.591h-36.365v85.753z"
+                ></path>
+                <path
+                  fill="#fff"
+                  d="M64 66.22h14.738l1.019-11.405h-15.757v-11.138h27.929000000000002l-.267 2.988-2.737 30.692h-24.925v-11.137z"
+                ></path>
+                <path
+                  fill="#EBEBEB"
+                  d="M64.067 95.146l-.049.014-12.404-3.35-.794-8.883h-11.178999999999998l1.561 17.488 22.814 6.333.052-.015v-11.587z"
+                ></path>
+                <path
+                  fill="#fff"
+                  d="M77.792 76.886l-1.342 14.916-12.422 3.353v11.588l22.833-6.328.168-1.882 1.938-21.647h-11.175z"
+                ></path>
+                <path
+                  fill="#EBEBEB"
+                  d="M64.039 43.677v11.136999999999999h-26.903000000000002l-.224-2.503-.507-5.646-.267-2.988h27.901zM64 66.221v11.138h-12.247l-.223-2.503-.508-5.647-.267-2.988h13.245z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-6 d-flex justify-content-center">
+            <div class="floating skill-logo">
+              <!-- JavaScript -->
+              <svg viewBox="0 0 128 128">
+                <path
+                  fill="#F0DB4F"
+                  d="M1.408 1.408h125.184v125.185h-125.184z"
+                ></path>
+                <path
+                  fill="#323330"
+                  d="M116.347 96.736c-.917-5.711-4.641-10.508-15.672-14.981-3.832-1.761-8.104-3.022-9.377-5.926-.452-1.69-.512-2.642-.226-3.665.821-3.32 4.784-4.355 7.925-3.403 2.023.678 3.938 2.237 5.093 4.724 5.402-3.498 5.391-3.475 9.163-5.879-1.381-2.141-2.118-3.129-3.022-4.045-3.249-3.629-7.676-5.498-14.756-5.355l-3.688.477c-3.534.893-6.902 2.748-8.877 5.235-5.926 6.724-4.236 18.492 2.975 23.335 7.104 5.332 17.54 6.545 18.873 11.531 1.297 6.104-4.486 8.08-10.234 7.378-4.236-.881-6.592-3.034-9.139-6.949-4.688 2.713-4.688 2.713-9.508 5.485 1.143 2.499 2.344 3.63 4.26 5.795 9.068 9.198 31.76 8.746 35.83-5.176.165-.478 1.261-3.666.38-8.581zm-46.885-37.793h-11.709l-.048 30.272c0 6.438.333 12.34-.714 14.149-1.713 3.558-6.152 3.117-8.175 2.427-2.059-1.012-3.106-2.451-4.319-4.485-.333-.584-.583-1.036-.667-1.071l-9.52 5.83c1.583 3.249 3.915 6.069 6.902 7.901 4.462 2.678 10.459 3.499 16.731 2.059 4.082-1.189 7.604-3.652 9.448-7.401 2.666-4.915 2.094-10.864 2.07-17.444.06-10.735.001-21.468.001-32.237z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-6 d-flex justify-content-center">
+            <div class="floating skill-logo">
+              <svg viewBox="0 0 128 128">
+                <path fill="#fff" d="M22.67 47h99.67v73.67H22.67z"></path>
+                <path
+                  data-name="original"
+                  fill="#007acc"
+                  d="M1.5 63.91v62.5h125v-125H1.5zm100.73-5a15.56 15.56 0 017.82 4.5 20.58 20.58 0 013 4c0 .16-5.4 3.81-8.69 5.85-.12.08-.6-.44-1.13-1.23a7.09 7.09 0 00-5.87-3.53c-3.79-.26-6.23 1.73-6.21 5a4.58 4.58 0 00.54 2.34c.83 1.73 2.38 2.76 7.24 4.86 8.95 3.85 12.78 6.39 15.16 10 2.66 4 3.25 10.46 1.45 15.24-2 5.2-6.9 8.73-13.83 9.9a38.32 38.32 0 01-9.52-.1 23 23 0 01-12.72-6.63c-1.15-1.27-3.39-4.58-3.25-4.82a9.34 9.34 0 011.15-.73L82 101l3.59-2.08.75 1.11a16.78 16.78 0 004.74 4.54c4 2.1 9.46 1.81 12.16-.62a5.43 5.43 0 00.69-6.92c-1-1.39-3-2.56-8.59-5-6.45-2.78-9.23-4.5-11.77-7.24a16.48 16.48 0 01-3.43-6.25 25 25 0 01-.22-8c1.33-6.23 6-10.58 12.82-11.87a31.66 31.66 0 019.49.26zm-29.34 5.24v5.12H56.66v46.23H45.15V69.26H28.88v-5a49.19 49.19 0 01.12-5.17C29.08 59 39 59 51 59h21.83z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-6 d-flex justify-content-center">
+            <div class="floating skill-logo">
+              <!-- Node.js -->
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg"
+              />
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-6 d-flex justify-content-center">
+            <div class="floating skill-logo">
+              <!-- Heroku -->
+              <svg viewBox="0 0 128 128">
+                <g fill="#6762A6">
+                  <path
+                    d="M39.3 89h53.3c4.6 0 8.3-3.7 8.3-8.3v-70.4c0-4.6-3.7-8.3-8.3-8.3h-53.3c-4.6 0-8.3 3.7-8.3 8.3v70.3c0 4.7 3.7 8.4 8.3 8.4zm38.2-75h10.8s-1.8 5-7.5 12h-10.4c3.7-4 7.1-12 7.1-12zm-20.5-.4v20.7s27-10.8 27 8.2v34.5h-8.8l-.2.1v-34.8s2.3-8.3-27.8 3.4c-.1.1-.1-32.1-.1-32.1h9.9zm-10 43.6l9.9 9.9-9.9 9.9v-19.8zM35.3 102.8c-4 0-7.3.5-9.7 1.4-.9 3.2-1.3 6.6-1.3 10.4 0 7 1.2 11.3 9.2 11.3 3.7 0 6.8-1.1 9.3-2.3l-.8-3.6c-2.4.9-5.5 1.7-8.2 1.7-3.5 0-4.6-.9-4.8-6.9h15v-2.2c0-6.1-2.2-9.8-8.7-9.8zm-6.3 9.2c.1-3 .3-3.8.5-4.7 1.9-.4 4.1-.4 5.6-.4 3.3 0 3.9 2.1 3.9 5.1h-10zM13.9 102.8c-2.7 0-4.9.7-7.9 1.5v-10.3h-4v31h4v-16.6c3-1 5-1.5 7-1.5 1 0 2 .5 2 1.7v16.9l.4-.4h4.6v-15.8c0-3.8-1.8-6.5-6.1-6.5zM122 103v17.4c-3 1-5.6 1.5-7.7 1.5-1 0-2.3-.5-2.3-1.7v-17.2h-4v16.7c0 3.7 1.3 6.3 5.6 6.3 2.7 0 7.4-.4 12.4-3.5v-19.5h-4zM103.8 103h-5.4c-1.3 3-3.2 7-5.6 9h-1.8v-18h-5v31h5v-10h2.1c2.8 3 4.6 7 6 10h5.6c-2.1-4-4.5-8.4-7.7-12.4 2.6-2.7 5-5.6 6.8-9.6zM48 125h4v-16.6c2-.8 5-1.1 7-1.2v-4c-3 .2-7 .9-11 3.1v18.7zM71.4 102.8c-6.1 0-10.3 3.2-10.3 11.7 0 8 3.2 11.5 10.3 11.5 6.1 0 10.3-3.2 10.3-11.7 0-8-3.2-11.5-10.3-11.5zm0 19.2c-4 0-5.7-1.4-5.7-7.5 0-5.6 2-7.7 5.7-7.7 4 0 5.7 1.4 5.7 7.5-.1 5.6-2.1 7.7-5.7 7.7z"
+                  ></path>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <!-- Third Row -->
+        <div class="row wow fadeIn">
+          <div class="col-md-2 col-sm-6 d-flex justify-content-center">
+            <div class="floating skill-logo">
+              <!-- React -->
+              <svg viewBox="0 0 128 128">
+                <g fill="#61DAFB">
+                  <circle cx="64" cy="64" r="11.4"></circle>
+                  <path
+                    d="M107.3 45.2c-2.2-.8-4.5-1.6-6.9-2.3.6-2.4 1.1-4.8 1.5-7.1 2.1-13.2-.2-22.5-6.6-26.1-1.9-1.1-4-1.6-6.4-1.6-7 0-15.9 5.2-24.9 13.9-9-8.7-17.9-13.9-24.9-13.9-2.4 0-4.5.5-6.4 1.6-6.4 3.7-8.7 13-6.6 26.1.4 2.3.9 4.7 1.5 7.1-2.4.7-4.7 1.4-6.9 2.3-12.5 4.8-19.3 11.4-19.3 18.8s6.9 14 19.3 18.8c2.2.8 4.5 1.6 6.9 2.3-.6 2.4-1.1 4.8-1.5 7.1-2.1 13.2.2 22.5 6.6 26.1 1.9 1.1 4 1.6 6.4 1.6 7.1 0 16-5.2 24.9-13.9 9 8.7 17.9 13.9 24.9 13.9 2.4 0 4.5-.5 6.4-1.6 6.4-3.7 8.7-13 6.6-26.1-.4-2.3-.9-4.7-1.5-7.1 2.4-.7 4.7-1.4 6.9-2.3 12.5-4.8 19.3-11.4 19.3-18.8s-6.8-14-19.3-18.8zm-14.8-30.5c4.1 2.4 5.5 9.8 3.8 20.3-.3 2.1-.8 4.3-1.4 6.6-5.2-1.2-10.7-2-16.5-2.5-3.4-4.8-6.9-9.1-10.4-13 7.4-7.3 14.9-12.3 21-12.3 1.3 0 2.5.3 3.5.9zm-11.2 59.3c-1.8 3.2-3.9 6.4-6.1 9.6-3.7.3-7.4.4-11.2.4-3.9 0-7.6-.1-11.2-.4-2.2-3.2-4.2-6.4-6-9.6-1.9-3.3-3.7-6.7-5.3-10 1.6-3.3 3.4-6.7 5.3-10 1.8-3.2 3.9-6.4 6.1-9.6 3.7-.3 7.4-.4 11.2-.4 3.9 0 7.6.1 11.2.4 2.2 3.2 4.2 6.4 6 9.6 1.9 3.3 3.7 6.7 5.3 10-1.7 3.3-3.4 6.6-5.3 10zm8.3-3.3c1.5 3.5 2.7 6.9 3.8 10.3-3.4.8-7 1.4-10.8 1.9 1.2-1.9 2.5-3.9 3.6-6 1.2-2.1 2.3-4.2 3.4-6.2zm-25.6 27.1c-2.4-2.6-4.7-5.4-6.9-8.3 2.3.1 4.6.2 6.9.2 2.3 0 4.6-.1 6.9-.2-2.2 2.9-4.5 5.7-6.9 8.3zm-18.6-15c-3.8-.5-7.4-1.1-10.8-1.9 1.1-3.3 2.3-6.8 3.8-10.3 1.1 2 2.2 4.1 3.4 6.1 1.2 2.2 2.4 4.1 3.6 6.1zm-7-25.5c-1.5-3.5-2.7-6.9-3.8-10.3 3.4-.8 7-1.4 10.8-1.9-1.2 1.9-2.5 3.9-3.6 6-1.2 2.1-2.3 4.2-3.4 6.2zm25.6-27.1c2.4 2.6 4.7 5.4 6.9 8.3-2.3-.1-4.6-.2-6.9-.2-2.3 0-4.6.1-6.9.2 2.2-2.9 4.5-5.7 6.9-8.3zm22.2 21l-3.6-6c3.8.5 7.4 1.1 10.8 1.9-1.1 3.3-2.3 6.8-3.8 10.3-1.1-2.1-2.2-4.2-3.4-6.2zm-54.5-16.2c-1.7-10.5-.3-17.9 3.8-20.3 1-.6 2.2-.9 3.5-.9 6 0 13.5 4.9 21 12.3-3.5 3.8-7 8.2-10.4 13-5.8.5-11.3 1.4-16.5 2.5-.6-2.3-1-4.5-1.4-6.6zm-24.7 29c0-4.7 5.7-9.7 15.7-13.4 2-.8 4.2-1.5 6.4-2.1 1.6 5 3.6 10.3 6 15.6-2.4 5.3-4.5 10.5-6 15.5-13.8-4-22.1-10-22.1-15.6zm28.5 49.3c-4.1-2.4-5.5-9.8-3.8-20.3.3-2.1.8-4.3 1.4-6.6 5.2 1.2 10.7 2 16.5 2.5 3.4 4.8 6.9 9.1 10.4 13-7.4 7.3-14.9 12.3-21 12.3-1.3 0-2.5-.3-3.5-.9zm60.8-20.3c1.7 10.5.3 17.9-3.8 20.3-1 .6-2.2.9-3.5.9-6 0-13.5-4.9-21-12.3 3.5-3.8 7-8.2 10.4-13 5.8-.5 11.3-1.4 16.5-2.5.6 2.3 1 4.5 1.4 6.6zm9-15.6c-2 .8-4.2 1.5-6.4 2.1-1.6-5-3.6-10.3-6-15.6 2.4-5.3 4.5-10.5 6-15.5 13.8 4 22.1 10 22.1 15.6 0 4.7-5.8 9.7-15.7 13.4z"
+                  ></path>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-6 d-flex justify-content-around">
+            <div class="floating skill-logo">
+              <!-- Android -->
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg"
+              />
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-6 d-flex justify-content-around">
+            <div class="floating skill-logo">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original-wordmark.svg"
+              />
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-6 d-flex justify-content-around">
+            <div class="floating skill-logo">
+              <!-- GraphQL -->
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain-wordmark.svg"
+              />
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-6 d-flex justify-content-around">
+            <div class="floating skill-logo">
+              <!-- Django -->
+              <svg viewBox="0 0 128 128">
+                <g>
+                  <path
+                    fill="#003A2B"
+                    d="M126.5 83.8c0 3.8-3.1 6.9-6.9 6.9h-111.2c-3.8 0-6.9-3.1-6.9-6.9v-39.6c0-3.8 3.1-6.9 6.9-6.9h111.2c3.8 0 6.9 3.1 6.9 6.9v39.6z"
+                  ></path>
+                  <path
+                    fill="#fff"
+                    d="M23 45.6h6v27.4c-3 .6-5.3.8-7.7.8-7.2 0-11-3.3-11-9.5 0-6 4-10 10.2-10 1 0 1.7.1 2.6.3v-9h-.1zm0 13.8c-.7-.2-1.3-.3-2-.3-3 0-4.7 1.8-4.7 5.1 0 3.2 1.7 4.9 4.7 4.9.7 0 1.2 0 2-.2v-9.5zM38.4 54.8v13.7c0 4.7-.3 7-1.4 9-1 1.9-2.2 3.1-4.8 4.4l-5.5-2.6c2.6-1.2 3.9-2.3 4.7-4 .8-1.7 1.1-3.7 1.1-8.8v-11.7h5.9zm-5.9-9.1h5.9v6.1h-5.9v-6.1zM42 56.1c2.6-1.2 5.1-1.8 7.8-1.8 3 0 5 .8 5.9 2.4.5.9.7 2 .7 4.5v12c-2.7.4-6 .7-8.5.7-5 0-7.2-1.7-7.2-5.6 0-4.2 3-6.1 10.2-6.7v-1.3c0-1.1-.5-1.5-2-1.5-2.2 0-4.7.6-7 1.8v-4.5h.1zm9.2 9.4c-3.9.4-5.2 1-5.2 2.5 0 1.2.7 1.7 2.3 1.7.9 0 1.7-.1 2.8-.3v-3.9h.1zM59.3 55.7c3.5-.9 6.4-1.3 9.3-1.3 3 0 5.2.7 6.5 2 1.2 1.3 1.6 2.7 1.6 5.6v11.6h-5.9v-11.4c0-2.3-.8-3.1-2.9-3.1-.8 0-1.5.1-2.7.4v14.1h-5.9v-17.9zM79 76.8c2.1 1.1 4.2 1.6 6.3 1.6 3.9 0 5.5-1.6 5.5-5.3v-.1c-1.2.6-2.3.8-3.8.8-5.2 0-8.5-3.4-8.5-8.8 0-6.7 4.9-10.5 13.5-10.5 2.5 0 4.9.3 7.7.8l-2 4.3c-1.6-.3-.1 0-1.3-.2v.6l.1 2.5v3.2c0 .8 0 1.6.1 2.4v1.6c0 5.1-.4 7.5-1.7 9.4-1.8 2.9-5 4.3-9.6 4.3-2.3 0-4.3-.3-6.4-1.2v-5.4h.1zm11.8-17.6h-.6000000000000001c-1.2 0-2.5.3-3.4.8-1.4.8-2.2 2.3-2.2 4.3 0 3 1.5 4.7 4.1 4.7.8 0 1.5-.2 2.2-.4v-9.4h-.1zM109 54.3c5.9 0 9.5 3.7 9.5 9.8 0 6.2-3.8 10.1-9.8 10.1-5.9 0-9.6-3.7-9.6-9.7.1-6.3 3.9-10.2 9.9-10.2zm-.1 15c2.3 0 3.6-1.9 3.6-5.2 0-3.2-1.3-5.2-3.6-5.2s-3.7 1.9-3.7 5.2c.1 3.4 1.4 5.2 3.7 5.2z"
+                  ></path>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-6 d-flex justify-content-around">
+            <div class="floating skill-logo">
+              <!-- MongoDB -->
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original-wordmark.svg"
+              />
+            </div>
+          </div>
+        </div>
+
+        <br /><br />
+      </div>
+    </section>
+    <main>
+      <div class="container">
+        <hr class="mb-5" id="projects" />
+
+        <!--Section: Projects-->
+     
+        <br /><br />
+        <!-- Projects second row -->
+
+        <br /><br />
+        <!-- Interests -->
+
+      </div>
+    </main>
+    <!--Main layout-->
+
+    <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+      <!--Call to action-->
+      <div class="pt-4">
+        <!-- Button trigger modal -->
+        <button
+          type="button"
+          class="btn btn-outline-white"
+          data-toggle="modal"
+          data-target="#basicExampleModal"
+        >
+          WeChat QR Code &nbsp;&nbsp; <i class="fab fa-weixin"></i>
+        </button>
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="basicExampleModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5
+                  class="modal-title"
+                  id="exampleModalLabel"
+                  style="color: black; font-weight: bold"
+                >
+                  WeChat QR Code | 微信二维码
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <img
+                  src="images/qrcode.jpg"
+                  alt="qrcode"
+                  style="width: 400px; height: 540px"
+                />
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-outline"
+                  data-dismiss="modal"
+                  style="height: 50px"
+                >
+                  <p style="color: black">Close</p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/.Call to action-->
+
+      <hr class="my-4" />
+
+      <!-- Social icons -->
+      <div class="pb-4">
         <div class="row">
-          <div class="col-md-6 gx-5 mb-4">
-            <div class="bg-image hover-overlay ripple shadow-2-strong" data-mdb-ripple-color="light">
-              <img src="https://mdbootstrap.com/img/new/slides/031.jpg" class="img-fluid" />
-              <a href="#!">
-                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+          <div class="col-sm-12">
+            <div class="zoom-icon">
+              <a href="https://www.wechat.com/" target="_blank">
+                <i class="fab fa-weixin fa-2x"></i>
+              </a>
+              &nbsp;&nbsp;
+            </div>
+            <div class="zoom-icon">
+              <a href="mailto:yifan.jiang@duke.edu" target="_blank">
+                <i class="far fa-envelope fa-2x"></i>
+              </a>
+              &nbsp;&nbsp;
+            </div>
+            <div class="zoom-icon">
+              <a href="https://github.com/jyf9870/" target="_blank">
+                <i class="fab fa-github fa-2x"></i>
+              </a>
+              &nbsp;&nbsp;
+            </div>
+
+            <div class="zoom-icon">
+              <a
+                href="https://www.linkedin.com/in/yifan-jiang-0841a2255/"
+                target="_blank"
+              >
+                <i class="fab fa-linkedin fa-2x"></i>
+              </a>
+              &nbsp;&nbsp;
+            </div>
+            <div class="zoom-icon">
+              <a href="sms:+19198646252" target="_blank">
+                <i class="far fa-comments fa-2x"></i>
               </a>
             </div>
           </div>
-
-          <div class="col-md-6 gx-5 mb-4">
-            <h4><strong>Facilis consequatur eligendi</strong></h4>
-            <p class="text-muted">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis consequatur
-              eligendi quisquam doloremque vero ex debitis veritatis placeat unde animi laborum
-              sapiente illo possimus, commodi dignissimos obcaecati illum maiores corporis.
-            </p>
-            <p><strong>Doloremque vero ex debitis veritatis?</strong></p>
-            <p class="text-muted">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod itaque voluptate
-              nesciunt laborum incidunt. Officia, quam consectetur. Earum eligendi aliquam illum
-              alias, unde optio accusantium soluta, iusto molestiae adipisci et?
-            </p>
-          </div>
         </div>
-      </section>
-      <!--Section: Content-->
+      </div>
+      <!-- Social icons -->
 
-      <hr class="my-5" />
+      <!--Copyright-->
+      <div id="bottom" class="footer-copyright py-3">
+        <!-- © 2019 Copyright: -->
+        <p>Designed and developed by Yifan Jiang</p>
+        <p>Powered by MDBootstrap.com</p>
+      </div>
+      <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
 
-      <!--Section: Content-->
-      <section class="text-center">
-        <h4 class="mb-5"><strong>Facilis consequatur eligendi</strong></h4>
-
-        <div class="row">
-          <div class="col-lg-4 col-md-12 mb-4">
-            <div class="card">
-              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                <img src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" class="img-fluid" />
-                <a href="#!">
-                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                </a>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the
-                  card's content.
-                </p>
-                <a href="#!" class="btn btn-primary">Button</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card">
-              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                <img src="https://mdbootstrap.com/img/new/standard/nature/023.jpg" class="img-fluid" />
-                <a href="#!">
-                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                </a>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the
-                  card's content.
-                </p>
-                <a href="#!" class="btn btn-primary">Button</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card">
-              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                <img src="https://mdbootstrap.com/img/new/standard/nature/111.jpg" class="img-fluid" />
-                <a href="#!">
-                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                </a>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the
-                  card's content.
-                </p>
-                <a href="#!" class="btn btn-primary">Button</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!--Section: Content-->
-
-      <hr class="my-5" />
-
-      <!--Section: Content-->
-      <section class="mb-5">
-        <h4 class="mb-5 text-center"><strong>Facilis consequatur eligendi</strong></h4>
-
-        <div class="row d-flex justify-content-center">
-          <div class="col-md-6">
-            <form>
-              <!-- 2 column grid layout with text inputs for the first and last names -->
-              <div class="row mb-4">
-                <div class="col">
-                  <div class="form-outline">
-                    <input type="text" id="form3Example1" class="form-control" />
-                    <label class="form-label" for="form3Example1">First name</label>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-outline">
-                    <input type="text" id="form3Example2" class="form-control" />
-                    <label class="form-label" for="form3Example2">Last name</label>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Email input -->
-              <div class="form-outline mb-4">
-                <input type="email" id="form3Example3" class="form-control" />
-                <label class="form-label" for="form3Example3">Email address</label>
-              </div>
-
-              <!-- Password input -->
-              <div class="form-outline mb-4">
-                <input type="password" id="form3Example4" class="form-control" />
-                <label class="form-label" for="form3Example4">Password</label>
-              </div>
-
-              <!-- Checkbox -->
-              <div class="form-check d-flex justify-content-center mb-4">
-                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" checked />
-                <label class="form-check-label" for="form2Example3">
-                  Subscribe to our newsletter
-                </label>
-              </div>
-
-              <!-- Submit button -->
-              <button type="submit" class="btn btn-primary btn-block mb-4">
-                Sign up
-              </button>
-
-              <!-- Register buttons -->
-              <div class="text-center">
-                <p>or sign up with:</p>
-                <button type="button" class="btn btn-primary btn-floating mx-1">
-                  <i class="fab fa-facebook-f"></i>
-                </button>
-
-                <button type="button" class="btn btn-primary btn-floating mx-1">
-                  <i class="fab fa-google"></i>
-                </button>
-
-                <button type="button" class="btn btn-primary btn-floating mx-1">
-                  <i class="fab fa-twitter"></i>
-                </button>
-
-                <button type="button" class="btn btn-primary btn-floating mx-1">
-                  <i class="fab fa-github"></i>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-      <!--Section: Content-->
-    </div>
-  </main>
-  <!--Main layout-->
-
-  <!--Footer-->
-  <footer class="bg-light text-lg-start">
-    <div class="py-4 text-center">
-      <a role="button" class="btn btn-primary btn-lg m-2"
-        href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA" rel="nofollow" target="_blank">
-        Learn Bootstrap 5
-      </a>
-      <a role="button" class="btn btn-primary btn-lg m-2" href="https://mdbootstrap.com/docs/standard/" target="_blank">
-        Download MDB UI KIT
-      </a>
-    </div>
-
-    <hr class="m-0" />
-
-    <div class="text-center py-4 align-items-center">
-      <p>Follow MDB on social media</p>
-      <a href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA" class="btn btn-primary m-1" role="button"
-        rel="nofollow" target="_blank">
-        <i class="fab fa-youtube"></i>
-      </a>
-      <a href="https://www.facebook.com/mdbootstrap" class="btn btn-primary m-1" role="button" rel="nofollow"
-        target="_blank">
-        <i class="fab fa-facebook-f"></i>
-      </a>
-      <a href="https://twitter.com/MDBootstrap" class="btn btn-primary m-1" role="button" rel="nofollow"
-        target="_blank">
-        <i class="fab fa-twitter"></i>
-      </a>
-      <a href="https://github.com/mdbootstrap/mdb-ui-kit" class="btn btn-primary m-1" role="button" rel="nofollow"
-        target="_blank">
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      © 2020 Copyright:
-      <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-    </div>
-    <!-- Copyright -->
-  </footer>
-  <!--Footer-->
-    <!-- MDB -->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
-    <!-- Custom scripts -->
-    <script type="text/javascript" src="js/script.js"></script>
-</body>
+    <!-- Initializations -->
+    <script type="text/javascript">
+      // Animations initialization
+      new WOW().init();
+    </script>
+    <script src="js/index.js"></script>
+  </body>
 </html>

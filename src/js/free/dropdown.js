@@ -1,8 +1,8 @@
-import { getjQuery, typeCheckConfig, onDOMContentLoaded } from '../mdb/util/index';
-import EventHandler from '../mdb/dom/event-handler';
+import { getjQuery, typeCheckConfig } from '../mdb/util/index';
+import EventHandler from '../bootstrap/src/dom/event-handler';
 import SelectorEngine from '../mdb/dom/selector-engine';
-import Manipulator from '../mdb/dom/manipulator';
-import BSDropdown from '../bootstrap/mdb-prefix/dropdown';
+import BSDropdown from '../bootstrap/src/dropdown';
+import Manipulator from '../bootstrap/src/dom/manipulator';
 
 /**
  * ------------------------------------------------------------------------
@@ -14,12 +14,12 @@ const NAME = 'dropdown';
 const DATA_KEY = `mdb.${NAME}`;
 const EVENT_KEY = `.${DATA_KEY}`;
 
-const SELECTOR_EXPAND = '[data-mdb-toggle="dropdown"]';
+const SELECTOR_EXPAND = '[data-toggle="dropdown"]';
 
 const Default = {
-  offset: [0, 2],
+  offset: 0,
   flip: true,
-  boundary: 'clippingParents',
+  boundary: 'scrollParent',
   reference: 'toggle',
   display: 'dynamic',
   popperConfig: null,
@@ -27,12 +27,12 @@ const Default = {
 };
 
 const DefaultType = {
-  offset: '(array|string|function)',
+  offset: '(number|string|function)',
   flip: 'boolean',
   boundary: '(string|element)',
-  reference: '(string|element|object)',
+  reference: '(string|element)',
   display: 'string',
-  popperConfig: '(null|object|function)',
+  popperConfig: '(null|object)',
   dropdownAnimation: 'string',
 };
 
@@ -56,8 +56,7 @@ class Dropdown extends BSDropdown {
     this._config = this._getConfig(data);
     this._parent = Dropdown.getParentFromElement(this._element);
     this._menuStyle = '';
-    this._popperPlacement = '';
-    this._mdbPopperConfig = '';
+    this._xPlacement = '';
 
     //* prevents dropdown close issue when system animation is turned off
     const isPrefersReducedMotionSet = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -98,59 +97,6 @@ class Dropdown extends BSDropdown {
     return config;
   }
 
-  _getOffset() {
-    const { offset } = this._config;
-
-    if (typeof offset === 'string') {
-      return offset.split(',').map((val) => Number.parseInt(val, 10));
-    }
-
-    if (typeof offset === 'function') {
-      return (popperData) => offset(popperData, this._element);
-    }
-
-    return offset;
-  }
-
-  _getPopperConfig() {
-    const popperConfig = {
-      placement: this._getPlacement(),
-      modifiers: [
-        {
-          name: 'preventOverflow',
-          options: {
-            altBoundary: this._config.flip,
-            boundary: this._config.boundary,
-          },
-        },
-        {
-          name: 'offset',
-          options: {
-            offset: this._getOffset(),
-          },
-        },
-      ],
-    };
-
-    // Disable Popper if we have a static display
-    if (this._config.display === 'static') {
-      popperConfig.modifiers = [
-        {
-          name: 'applyStyles',
-          enabled: false,
-        },
-      ];
-    }
-
-    return {
-      ...popperConfig,
-      /* eslint no-extra-parens: "off" */
-      ...(typeof this._config.popperConfig === 'function'
-        ? this._config.popperConfig(popperConfig)
-        : this._config.popperConfig),
-    };
-  }
-
   _bindShowEvent() {
     EventHandler.on(this._element, EVENT_SHOW, (e) => {
       EventHandler.trigger(this._element, EVENT_SHOW_MDB, { relatedTarget: e.relatedTarget });
@@ -170,8 +116,7 @@ class Dropdown extends BSDropdown {
       EventHandler.trigger(this._parent, EVENT_HIDE_MDB, { relatedTarget: e.relatedTarget });
 
       this._menuStyle = this._menu.style.cssText;
-      this._popperPlacement = this._menu.getAttribute('data-popper-placement');
-      this._mdbPopperConfig = this._menu.getAttribute('data-mdb-popper');
+      this._xPlacement = this._menu.getAttribute('x-placement');
     });
   }
 
@@ -179,12 +124,8 @@ class Dropdown extends BSDropdown {
     EventHandler.on(this._parent, EVENT_HIDDEN, (e) => {
       EventHandler.trigger(this._parent, EVENT_HIDDEN_MDB, { relatedTarget: e.relatedTarget });
 
-      if (this._config.display !== 'static' && this._menuStyle !== '') {
-        this._menu.style.cssText = this._menuStyle;
-      }
-
-      this._menu.setAttribute('data-popper-placement', this._popperPlacement);
-      this._menu.setAttribute('data-mdb-popper', this._mdbPopperConfig);
+      this._menu.style.cssText = this._menuStyle;
+      this._menu.setAttribute('x-placement', this._xPlacement);
 
       this._dropdownAnimationStart('hide');
     });
@@ -233,18 +174,16 @@ SelectorEngine.find(SELECTOR_EXPAND).forEach((el) => {
  * add .rating to jQuery only if jQuery is present
  */
 
-onDOMContentLoaded(() => {
-  const $ = getjQuery();
+const $ = getjQuery();
 
-  if ($) {
-    const JQUERY_NO_CONFLICT = $.fn[NAME];
-    $.fn[NAME] = Dropdown.jQueryInterface;
-    $.fn[NAME].Constructor = Dropdown;
-    $.fn[NAME].noConflict = () => {
-      $.fn[NAME] = JQUERY_NO_CONFLICT;
-      return Dropdown.jQueryInterface;
-    };
-  }
-});
+if ($) {
+  const JQUERY_NO_CONFLICT = $.fn[NAME];
+  $.fn[NAME] = Dropdown.jQueryInterface;
+  $.fn[NAME].Constructor = Dropdown;
+  $.fn[NAME].noConflict = () => {
+    $.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Dropdown.jQueryInterface;
+  };
+}
 
 export default Dropdown;

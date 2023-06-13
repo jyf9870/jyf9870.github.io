@@ -1,6 +1,6 @@
 /*!
- * Bootstrap scrollspy.js v5.0.0-beta2 (https://getbootstrap.com/)
- * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+ * Bootstrap scrollspy.js v5.0.0-alpha2 (https://getbootstrap.com/)
+ * Copyright 2011-2020 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 (function (global, factory) {
@@ -9,26 +9,23 @@
         require('./dom/data.js'),
         require('./dom/event-handler.js'),
         require('./dom/manipulator.js'),
-        require('./dom/selector-engine.js'),
-        require('./base-component.js')
+        require('./dom/selector-engine.js')
       ))
     : typeof define === 'function' && define.amd
     ? define([
-        './dom/data',
-        './dom/event-handler',
-        './dom/manipulator',
-        './dom/selector-engine',
-        './base-component',
+        './dom/data.js',
+        './dom/event-handler.js',
+        './dom/manipulator.js',
+        './dom/selector-engine.js',
       ], factory)
     : ((global = typeof globalThis !== 'undefined' ? globalThis : global || self),
       (global.ScrollSpy = factory(
         global.Data,
         global.EventHandler,
         global.Manipulator,
-        global.SelectorEngine,
-        global.Base
+        global.SelectorEngine
       )));
-})(this, function (Data, EventHandler, Manipulator, SelectorEngine, BaseComponent) {
+})(this, function (Data, EventHandler, Manipulator, SelectorEngine) {
   'use strict';
 
   function _interopDefaultLegacy(e) {
@@ -39,65 +36,10 @@
   var EventHandler__default = /*#__PURE__*/ _interopDefaultLegacy(EventHandler);
   var Manipulator__default = /*#__PURE__*/ _interopDefaultLegacy(Manipulator);
   var SelectorEngine__default = /*#__PURE__*/ _interopDefaultLegacy(SelectorEngine);
-  var BaseComponent__default = /*#__PURE__*/ _interopDefaultLegacy(BaseComponent);
-
-  function _defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ('value' in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  function _createClass(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties(Constructor, staticProps);
-    return Constructor;
-  }
-
-  function _extends() {
-    _extends =
-      Object.assign ||
-      function (target) {
-        for (var i = 1; i < arguments.length; i++) {
-          var source = arguments[i];
-
-          for (var key in source) {
-            if (Object.prototype.hasOwnProperty.call(source, key)) {
-              target[key] = source[key];
-            }
-          }
-        }
-
-        return target;
-      };
-
-    return _extends.apply(this, arguments);
-  }
-
-  function _inheritsLoose(subClass, superClass) {
-    subClass.prototype = Object.create(superClass.prototype);
-    subClass.prototype.constructor = subClass;
-
-    _setPrototypeOf(subClass, superClass);
-  }
-
-  function _setPrototypeOf(o, p) {
-    _setPrototypeOf =
-      Object.setPrototypeOf ||
-      function _setPrototypeOf(o, p) {
-        o.__proto__ = p;
-        return o;
-      };
-
-    return _setPrototypeOf(o, p);
-  }
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.0.0-beta2): util/index.js
+   * Bootstrap (v5.0.0-alpha2): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -128,22 +70,10 @@
   };
 
   var getSelector = function getSelector(element) {
-    var selector = element.getAttribute('data-bs-target');
+    var selector = element.getAttribute('data-target');
 
     if (!selector || selector === '#') {
-      var hrefAttr = element.getAttribute('href'); // The only valid content that could double as a selector are IDs or classes,
-      // so everything starting with `#` or `.`. If a "real" URL is used as the selector,
-      // `document.querySelector` will rightfully complain it is invalid.
-      // See https://github.com/twbs/bootstrap/issues/32273
-
-      if (!hrefAttr || (!hrefAttr.includes('#') && !hrefAttr.startsWith('.'))) {
-        return null;
-      } // Just in case some CMS puts out a full URL with the anchor appended
-
-      if (hrefAttr.includes('#') && !hrefAttr.startsWith('#')) {
-        hrefAttr = '#' + hrefAttr.split('#')[1];
-      }
-
+      var hrefAttr = element.getAttribute('href');
       selector = hrefAttr && hrefAttr !== '#' ? hrefAttr.trim() : null;
     }
 
@@ -171,7 +101,7 @@
       var valueType = value && isElement(value) ? 'element' : toType(value);
 
       if (!new RegExp(expectedTypes).test(valueType)) {
-        throw new TypeError(
+        throw new Error(
           componentName.toUpperCase() +
             ': ' +
             ('Option "' + property + '" provided type "' + valueType + '" ') +
@@ -185,41 +115,45 @@
     var _window = window,
       jQuery = _window.jQuery;
 
-    if (jQuery && !document.body.hasAttribute('data-bs-no-jquery')) {
+    if (jQuery && !document.body.hasAttribute('data-no-jquery')) {
       return jQuery;
     }
 
     return null;
   };
 
-  var onDOMContentLoaded = function onDOMContentLoaded(callback) {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', callback);
-    } else {
-      callback();
+  function _extends() {
+    _extends =
+      Object.assign ||
+      function (target) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      };
+    return _extends.apply(this, arguments);
+  }
+
+  function _defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ('value' in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
     }
-  };
+  }
 
-  document.documentElement.dir === 'rtl';
-
-  var defineJQueryPlugin = function defineJQueryPlugin(name, plugin) {
-    onDOMContentLoaded(function () {
-      var $ = getjQuery();
-      /* istanbul ignore if */
-
-      if ($) {
-        var JQUERY_NO_CONFLICT = $.fn[name];
-        $.fn[name] = plugin.jQueryInterface;
-        $.fn[name].Constructor = plugin;
-
-        $.fn[name].noConflict = function () {
-          $.fn[name] = JQUERY_NO_CONFLICT;
-          return plugin.jQueryInterface;
-        };
-      }
-    });
-  };
-
+  function _createClass(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+  }
   /**
    * ------------------------------------------------------------------------
    * Constants
@@ -227,6 +161,7 @@
    */
 
   var NAME = 'scrollspy';
+  var VERSION = '5.0.0-alpha2';
   var DATA_KEY = 'bs.scrollspy';
   var EVENT_KEY = '.' + DATA_KEY;
   var DATA_API_KEY = '.data-api';
@@ -245,7 +180,7 @@
   var EVENT_LOAD_DATA_API = 'load' + EVENT_KEY + DATA_API_KEY;
   var CLASS_NAME_DROPDOWN_ITEM = 'dropdown-item';
   var CLASS_NAME_ACTIVE = 'active';
-  var SELECTOR_DATA_SPY = '[data-bs-spy="scroll"]';
+  var SELECTOR_DATA_SPY = '[data-spy="scroll"]';
   var SELECTOR_NAV_LIST_GROUP = '.nav, .list-group';
   var SELECTOR_NAV_LINKS = '.nav-link';
   var SELECTOR_NAV_ITEMS = '.nav-item';
@@ -260,40 +195,37 @@
    * ------------------------------------------------------------------------
    */
 
-  var ScrollSpy = /*#__PURE__*/ (function (_BaseComponent) {
-    _inheritsLoose(ScrollSpy, _BaseComponent);
-
+  var ScrollSpy = /*#__PURE__*/ (function () {
     function ScrollSpy(element, config) {
-      var _this;
+      var _this = this;
 
-      _this = _BaseComponent.call(this, element) || this;
-      _this._scrollElement = element.tagName === 'BODY' ? window : element;
-      _this._config = _this._getConfig(config);
-      _this._selector =
-        _this._config.target +
+      this._element = element;
+      this._scrollElement = element.tagName === 'BODY' ? window : element;
+      this._config = this._getConfig(config);
+      this._selector =
+        this._config.target +
         ' ' +
         SELECTOR_NAV_LINKS +
         ', ' +
-        _this._config.target +
+        this._config.target +
         ' ' +
         SELECTOR_LIST_ITEMS +
         ', ' +
-        _this._config.target +
+        this._config.target +
         ' .' +
         CLASS_NAME_DROPDOWN_ITEM;
-      _this._offsets = [];
-      _this._targets = [];
-      _this._activeTarget = null;
-      _this._scrollHeight = 0;
-      EventHandler__default['default'].on(_this._scrollElement, EVENT_SCROLL, function () {
-        return _this._process();
+      this._offsets = [];
+      this._targets = [];
+      this._activeTarget = null;
+      this._scrollHeight = 0;
+      EventHandler__default['default'].on(this._scrollElement, EVENT_SCROLL, function (event) {
+        return _this._process(event);
       });
+      this.refresh();
 
-      _this.refresh();
+      this._process();
 
-      _this._process();
-
-      return _this;
+      Data__default['default'].setData(element, DATA_KEY, this);
     } // Getters
 
     var _proto = ScrollSpy.prototype;
@@ -344,9 +276,9 @@
     };
 
     _proto.dispose = function dispose() {
-      _BaseComponent.prototype.dispose.call(this);
-
+      Data__default['default'].removeData(this._element, DATA_KEY);
       EventHandler__default['default'].off(this._scrollElement, EVENT_KEY);
+      this._element = null;
       this._scrollElement = null;
       this._config = null;
       this._selector = null;
@@ -440,9 +372,7 @@
       this._clear();
 
       var queries = this._selector.split(',').map(function (selector) {
-        return (
-          selector + '[data-bs-target="' + target + '"],' + selector + '[href="' + target + '"]'
-        );
+        return selector + '[data-target="' + target + '"],' + selector + '[href="' + target + '"]';
       });
 
       var link = SelectorEngine__default['default'].findOne(queries.join(','));
@@ -514,23 +444,27 @@
       });
     };
 
+    ScrollSpy.getInstance = function getInstance(element) {
+      return Data__default['default'].getData(element, DATA_KEY);
+    };
+
     _createClass(ScrollSpy, null, [
+      {
+        key: 'VERSION',
+        get: function get() {
+          return VERSION;
+        },
+      },
       {
         key: 'Default',
         get: function get() {
           return Default;
         },
       },
-      {
-        key: 'DATA_KEY',
-        get: function get() {
-          return DATA_KEY;
-        },
-      },
     ]);
 
     return ScrollSpy;
-  })(BaseComponent__default['default']);
+  })();
   /**
    * ------------------------------------------------------------------------
    * Data Api implementation
@@ -542,14 +476,25 @@
       return new ScrollSpy(spy, Manipulator__default['default'].getDataAttributes(spy));
     });
   });
+  var $ = getjQuery();
   /**
    * ------------------------------------------------------------------------
    * jQuery
    * ------------------------------------------------------------------------
-   * add .ScrollSpy to jQuery only if jQuery is present
    */
 
-  defineJQueryPlugin(NAME, ScrollSpy);
+  /* istanbul ignore if */
+
+  if ($) {
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    $.fn[NAME] = ScrollSpy.jQueryInterface;
+    $.fn[NAME].Constructor = ScrollSpy;
+
+    $.fn[NAME].noConflict = function () {
+      $.fn[NAME] = JQUERY_NO_CONFLICT;
+      return ScrollSpy.jQueryInterface;
+    };
+  }
 
   return ScrollSpy;
 });

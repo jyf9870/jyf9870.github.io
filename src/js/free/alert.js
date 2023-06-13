@@ -1,7 +1,7 @@
-import { getjQuery, onDOMContentLoaded } from '../mdb/util/index';
+import { getjQuery } from '../mdb/util/index';
 import EventHandler from '../mdb/dom/event-handler';
 import SelectorEngine from '../mdb/dom/selector-engine';
-import BSAlert from '../bootstrap/mdb-prefix/alert';
+import BSAlert from '../bootstrap/src/alert';
 
 /**
  * ------------------------------------------------------------------------
@@ -78,18 +78,17 @@ SelectorEngine.find(SELECTOR_ALERT).forEach((el) => {
  * ------------------------------------------------------------------------
  * add .rating to jQuery only if jQuery is present
  */
-onDOMContentLoaded(() => {
-  const $ = getjQuery();
 
-  if ($) {
-    const JQUERY_NO_CONFLICT = $.fn[NAME];
-    $.fn[NAME] = Alert.jQueryInterface;
-    $.fn[NAME].Constructor = Alert;
-    $.fn[NAME].noConflict = () => {
-      $.fn[NAME] = JQUERY_NO_CONFLICT;
-      return Alert.jQueryInterface;
-    };
-  }
-});
+const $ = getjQuery();
+
+if ($) {
+  const JQUERY_NO_CONFLICT = $.fn[NAME];
+  $.fn[NAME] = Alert.jQueryInterface;
+  $.fn[NAME].Constructor = Alert;
+  $.fn[NAME].noConflict = () => {
+    $.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Alert.jQueryInterface;
+  };
+}
 
 export default Alert;

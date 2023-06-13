@@ -1,11 +1,11 @@
 /**
  * --------------------------------------------------------------------------
- * Bootstrap (v5.0.0-beta2): popover.js
+ * Bootstrap (v5.0.0-alpha2): popover.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
 
-import { defineJQueryPlugin } from './util/index';
+import { getjQuery } from './util/index';
 import Data from './dom/data';
 import SelectorEngine from './dom/selector-engine';
 import Tooltip from './tooltip';
@@ -17,6 +17,7 @@ import Tooltip from './tooltip';
  */
 
 const NAME = 'popover';
+const VERSION = '5.0.0-alpha2';
 const DATA_KEY = 'bs.popover';
 const EVENT_KEY = `.${DATA_KEY}`;
 const CLASS_PREFIX = 'bs-popover';
@@ -25,15 +26,13 @@ const BSCLS_PREFIX_REGEX = new RegExp(`(^|\\s)${CLASS_PREFIX}\\S+`, 'g');
 const Default = {
   ...Tooltip.Default,
   placement: 'right',
-  offset: [0, 8],
   trigger: 'click',
   content: '',
   template:
     '<div class="popover" role="tooltip">' +
     '<div class="popover-arrow"></div>' +
     '<h3 class="popover-header"></h3>' +
-    '<div class="popover-body"></div>' +
-    '</div>',
+    '<div class="popover-body"></div></div>',
 };
 
 const DefaultType = {
@@ -68,6 +67,10 @@ const SELECTOR_CONTENT = '.popover-body';
 
 class Popover extends Tooltip {
   // Getters
+
+  static get VERSION() {
+    return VERSION;
+  }
 
   static get Default() {
     return Default;
@@ -106,7 +109,7 @@ class Popover extends Tooltip {
     this.setElementContent(SelectorEngine.findOne(SELECTOR_TITLE, tip), this.getTitle());
     let content = this._getContent();
     if (typeof content === 'function') {
-      content = content.call(this._element);
+      content = content.call(this.element);
     }
 
     this.setElementContent(SelectorEngine.findOne(SELECTOR_CONTENT, tip), content);
@@ -117,11 +120,11 @@ class Popover extends Tooltip {
   // Private
 
   _addAttachmentClass(attachment) {
-    this.getTipElement().classList.add(`${CLASS_PREFIX}-${this.updateAttachment(attachment)}`);
+    this.getTipElement().classList.add(`${CLASS_PREFIX}-${attachment}`);
   }
 
   _getContent() {
-    return this._element.getAttribute('data-bs-content') || this.config.content;
+    return this.element.getAttribute('data-content') || this.config.content;
   }
 
   _cleanTipClass() {
@@ -157,15 +160,28 @@ class Popover extends Tooltip {
       }
     });
   }
+
+  static getInstance(element) {
+    return Data.getData(element, DATA_KEY);
+  }
 }
+
+const $ = getjQuery();
 
 /**
  * ------------------------------------------------------------------------
  * jQuery
  * ------------------------------------------------------------------------
- * add .Popover to jQuery only if jQuery is present
  */
-
-defineJQueryPlugin(NAME, Popover);
+/* istanbul ignore if */
+if ($) {
+  const JQUERY_NO_CONFLICT = $.fn[NAME];
+  $.fn[NAME] = Popover.jQueryInterface;
+  $.fn[NAME].Constructor = Popover;
+  $.fn[NAME].noConflict = () => {
+    $.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Popover.jQueryInterface;
+  };
+}
 
 export default Popover;
