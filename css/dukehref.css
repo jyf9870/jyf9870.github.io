@@ -1,0 +1,24 @@
+
+.dukehref:link {
+  color: #07307d;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.dukehref:visited {
+  color: #07307d;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.dukehref:hover {
+  color: #a5ccee;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.dukehref:active {
+  color: #a5ccee;
+  background-color: transparent;
+  text-decoration: underline;
+}

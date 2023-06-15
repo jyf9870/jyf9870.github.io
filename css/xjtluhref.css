@@ -1,0 +1,24 @@
+
+.xjtluhref:link {
+  color: #6d48c4;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.xjtluhref:visited {
+  color: #6d48c4;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.xjtluhref:hover {
+  color: #cabbec;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.xjtluhref:active {
+  color: #cabbec;
+  background-color: transparent;
+  text-decoration: underline;
+}
