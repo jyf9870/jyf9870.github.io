@@ -98,12 +98,12 @@
     width: 75px;
     transition: 0.4s ease-out;
   }
-
+/* 
 .circle {
   position: absolute;
   top: 145px;
   left: calc(50% - 60px);
-}
+} */
 
 .stroke {
   stroke: white;
